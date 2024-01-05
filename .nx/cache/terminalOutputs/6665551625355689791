@@ -1,0 +1,7 @@
+Creating an optimized production build...
+[31mFailed to compile.[39m
+[31m[39m
+[eslint] Failed to load config "react-app" to extend from.
+Referenced from: /Users/hojoon/Desktop/개인 프로젝트 /frontend-desgin-system/services/test/package.json
+
+

@@ -1,0 +1,20 @@
+{
+  "name": "frontend-desgin-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "workspaces": [
+    "packages/**/*",
+    "services/**/*"
+  ],
+  "scripts": {
+    "build": "nx build",
+    "graph": "nx run-many --target=build --graph"
+  },
+  "author": "",
+  "license": "ISC",
+  "packageManager": "yarn@4.0.2",
+  "devDependencies": {
+    "nx": "^17.2.8"
+  }
+}
