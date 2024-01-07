@@ -2,7 +2,8 @@
   "version": "6.0",
   "nxVersion": "17.2.8",
   "deps": {
-    "nx": "^17.2.8"
+    "nx": "^17.2.8",
+    "typescript": "^5.3.3"
   },
   "pathMappings": {},
   "nxJsonPlugins": [],
@@ -14,44 +15,52 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": ".yarnrc.yml",
-        "hash": "13229478647683300518"
+        "file": "README.md",
+        "hash": "3858935208656687258"
       },
       {
-        "file": ".pnp.cjs",
-        "hash": "14190137162562187872"
-      },
-      {
-        "file": "nx.json",
-        "hash": "683125943111680290"
-      },
-      {
-        "file": ".yarn/releases/yarn-4.0.2.cjs",
-        "hash": "18186858436245718126"
-      },
-      {
-        "file": ".yarn/install-state.gz",
-        "hash": "15515066495840815342"
-      },
-      {
-        "file": "yarn.lock",
-        "hash": "12373580785057476008"
+        "file": ".nx/cache/d/server-process.json",
+        "hash": "10240370270855000050"
       },
       {
         "file": ".gitignore",
         "hash": "393010109510776850"
       },
       {
-        "file": "README.md",
-        "hash": "3858935208656687258"
+        "file": ".vscode/extensions.json",
+        "hash": "2102046839467124312"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "15322884351288772532"
+      },
+      {
+        "file": "yarn.lock",
+        "hash": "12360334938311560401"
+      },
+      {
+        "file": "nx.json",
+        "hash": "683125943111680290"
+      },
+      {
+        "file": ".vscode/settings.json",
+        "hash": "7931069930378337289"
+      },
+      {
+        "file": ".yarnrc.yml",
+        "hash": "13229478647683300518"
       },
       {
         "file": "package.json",
-        "hash": "3513490242021080626"
+        "hash": "1259501854232847568"
       },
       {
-        "file": ".pnp.loader.mjs",
-        "hash": "6789418785968373878"
+        "file": ".yarn/releases/yarn-4.0.2.cjs",
+        "hash": "18186858436245718126"
+      },
+      {
+        "file": ".yarn/sdks/integrations.yml",
+        "hash": "5703335058684100671"
       }
     ],
     "projectFileMap": {
@@ -59,70 +68,6 @@
         {
           "file": "packages/themes/build.js",
           "hash": "18153831689520883098"
-        },
-        {
-          "file": "packages/themes/dist/classes/index.d.ts",
-          "hash": "14874153686921477232"
-        },
-        {
-          "file": "packages/themes/dist/classes/typography.d.ts",
-          "hash": "17439377685274993557"
-        },
-        {
-          "file": "packages/themes/dist/index.cjs",
-          "hash": "8166930358471185557"
-        },
-        {
-          "file": "packages/themes/dist/index.cjs.map",
-          "hash": "838244431627173974"
-        },
-        {
-          "file": "packages/themes/dist/index.d.ts",
-          "hash": "5051740342712927388"
-        },
-        {
-          "file": "packages/themes/dist/index.js",
-          "hash": "15072853568427483989"
-        },
-        {
-          "file": "packages/themes/dist/index.js.map",
-          "hash": "7410320641030821399"
-        },
-        {
-          "file": "packages/themes/dist/themes.css",
-          "hash": "17309410983744279724"
-        },
-        {
-          "file": "packages/themes/dist/variables/box.d.ts",
-          "hash": "8535097545779055397"
-        },
-        {
-          "file": "packages/themes/dist/variables/colors/index.d.ts",
-          "hash": "16067044052561609752"
-        },
-        {
-          "file": "packages/themes/dist/variables/colors/scale.d.ts",
-          "hash": "13825339923779810162"
-        },
-        {
-          "file": "packages/themes/dist/variables/colors/static/dark.d.ts",
-          "hash": "12956363065636289770"
-        },
-        {
-          "file": "packages/themes/dist/variables/colors/static/index.d.ts",
-          "hash": "17639848047638776056"
-        },
-        {
-          "file": "packages/themes/dist/variables/colors/static/light.d.ts",
-          "hash": "17642843712593174127"
-        },
-        {
-          "file": "packages/themes/dist/variables/index.d.ts",
-          "hash": "17288868138055620940"
-        },
-        {
-          "file": "packages/themes/dist/variables/typography.d.ts",
-          "hash": "10652839459202001278"
         },
         {
           "file": "packages/themes/package.json",
@@ -178,172 +123,7 @@
         },
         {
           "file": "packages/themes/tsconfig.json",
-          "hash": "15782477948986815206"
-        }
-      ],
-      "test": [
-        {
-          "file": "services/test/.gitignore",
-          "hash": "5403484524555424706"
-        },
-        {
-          "file": "services/test/README.md",
-          "hash": "17911282315018038361"
-        },
-        {
-          "file": "services/test/package.json",
-          "hash": "217213271977907921",
-          "deps": [
-            "@hojoon/themes"
-          ]
-        },
-        {
-          "file": "services/test/public/favicon.ico",
-          "hash": "2949791817221603359"
-        },
-        {
-          "file": "services/test/public/index.html",
-          "hash": "7784143437936421279"
-        },
-        {
-          "file": "services/test/public/logo192.png",
-          "hash": "7585273181698778288"
-        },
-        {
-          "file": "services/test/public/logo512.png",
-          "hash": "9339365414554387981"
-        },
-        {
-          "file": "services/test/public/manifest.json",
-          "hash": "1447645250373428393"
-        },
-        {
-          "file": "services/test/public/robots.txt",
-          "hash": "2790380794362165217"
-        },
-        {
-          "file": "services/test/src/App.css",
-          "hash": "9396524817288244517"
-        },
-        {
-          "file": "services/test/src/App.tsx",
-          "hash": "5240613874864744194"
-        },
-        {
-          "file": "services/test/src/index.css",
-          "hash": "14056909652331273425"
-        },
-        {
-          "file": "services/test/src/index.tsx",
-          "hash": "9583376131940669417"
-        },
-        {
-          "file": "services/test/src/logo.svg",
-          "hash": "5137778160416929466"
-        },
-        {
-          "file": "services/test/src/react-app-env.d.ts",
-          "hash": "3195158367843515590"
-        },
-        {
-          "file": "services/test/src/reportWebVitals.ts",
-          "hash": "4905365886999342103"
-        },
-        {
-          "file": "services/test/src/setupTests.ts",
-          "hash": "16903885983588411080"
-        },
-        {
-          "file": "services/test/tsconfig.json",
-          "hash": "3664978063588679595"
-        },
-        {
-          "file": "services/test/build/logo512.png",
-          "hash": "9339365414554387981"
-        },
-        {
-          "file": "services/test/build/robots.txt",
-          "hash": "2790380794362165217"
-        },
-        {
-          "file": "services/test/build/favicon.ico",
-          "hash": "2949791817221603359"
-        },
-        {
-          "file": "services/test/build/logo192.png",
-          "hash": "7585273181698778288"
-        },
-        {
-          "file": "services/test/build/manifest.json",
-          "hash": "1447645250373428393"
-        },
-        {
-          "file": "services/test/.git/hooks/pre-merge-commit.sample",
-          "hash": "5691533144974613569"
-        },
-        {
-          "file": "services/test/.git/hooks/pre-commit.sample",
-          "hash": "10258126878297473471"
-        },
-        {
-          "file": "services/test/.git/config",
-          "hash": "14656440403329541874"
-        },
-        {
-          "file": "services/test/.git/hooks/fsmonitor-watchman.sample",
-          "hash": "5519580754951798083"
-        },
-        {
-          "file": "services/test/.git/hooks/pre-rebase.sample",
-          "hash": "15784748353859782246"
-        },
-        {
-          "file": "services/test/.git/hooks/pre-push.sample",
-          "hash": "3666369642558647280"
-        },
-        {
-          "file": "services/test/.git/hooks/push-to-checkout.sample",
-          "hash": "5194610557431485830"
-        },
-        {
-          "file": "services/test/.git/description",
-          "hash": "6589616779641096119"
-        },
-        {
-          "file": "services/test/.git/info/exclude",
-          "hash": "2084763735014985388"
-        },
-        {
-          "file": "services/test/.git/hooks/post-update.sample",
-          "hash": "16498975149454253769"
-        },
-        {
-          "file": "services/test/.git/hooks/commit-msg.sample",
-          "hash": "11930680668000581900"
-        },
-        {
-          "file": "services/test/.git/HEAD",
-          "hash": "6460185820263248482"
-        },
-        {
-          "file": "services/test/.git/hooks/prepare-commit-msg.sample",
-          "hash": "4009645067798984574"
-        },
-        {
-          "file": "services/test/.git/hooks/applypatch-msg.sample",
-          "hash": "3740124940738663445"
-        },
-        {
-          "file": "services/test/.git/hooks/update.sample",
-          "hash": "14696759095365231402"
-        },
-        {
-          "file": "services/test/.git/hooks/pre-receive.sample",
-          "hash": "8999430056057037490"
-        },
-        {
-          "file": "services/test/.git/hooks/pre-applypatch.sample",
-          "hash": "1595391782482835178"
+          "hash": "10248009443664204963"
         }
       ]
     }

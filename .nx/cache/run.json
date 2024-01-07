@@ -1,8 +1,8 @@
 {
   "run": {
-    "command": "nx build test",
-    "startTime": "2024-01-05T18:40:33.851Z",
-    "endTime": "2024-01-05T18:40:43.896Z",
+    "command": "nx build @hojoon/themes",
+    "startTime": "2024-01-05T20:06:20.943Z",
+    "endTime": "2024-01-05T20:06:24.491Z",
     "inner": false
   },
   "tasks": [
@@ -10,23 +10,12 @@
       "taskId": "@hojoon/themes:build",
       "target": "build",
       "projectName": "@hojoon/themes",
-      "hash": "3897307685714105214",
-      "startTime": "2024-01-05T18:40:33.855Z",
-      "endTime": "2024-01-05T18:40:38.390Z",
+      "hash": "17170399441703584791",
+      "startTime": "2024-01-05T20:06:20.945Z",
+      "endTime": "2024-01-05T20:06:24.491Z",
       "params": "",
       "cacheStatus": "cache-miss",
       "status": 0
-    },
-    {
-      "taskId": "test:build",
-      "target": "build",
-      "projectName": "test",
-      "hash": "6665551625355689791",
-      "startTime": "2024-01-05T18:40:38.391Z",
-      "endTime": "2024-01-05T18:40:43.895Z",
-      "params": "",
-      "cacheStatus": "cache-miss",
-      "status": 1
     }
   ]
 }
