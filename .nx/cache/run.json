@@ -1,18 +1,40 @@
 {
   "run": {
-    "command": "nx build @hojoon/themes",
-    "startTime": "2024-01-05T20:06:20.943Z",
-    "endTime": "2024-01-05T20:06:24.491Z",
+    "command": "nx build @hojoon/react-components-layout",
+    "startTime": "2024-01-08T11:50:24.328Z",
+    "endTime": "2024-01-08T11:50:31.625Z",
     "inner": false
   },
   "tasks": [
     {
+      "taskId": "@hojoon/esbuild-config:build",
+      "target": "build",
+      "projectName": "@hojoon/esbuild-config",
+      "hash": "12525466969743518836",
+      "startTime": "2024-01-08T11:50:24.331Z",
+      "endTime": "2024-01-08T11:50:25.032Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 0
+    },
+    {
       "taskId": "@hojoon/themes:build",
       "target": "build",
       "projectName": "@hojoon/themes",
-      "hash": "17170399441703584791",
-      "startTime": "2024-01-05T20:06:20.945Z",
-      "endTime": "2024-01-05T20:06:24.491Z",
+      "hash": "5855192310410103058",
+      "startTime": "2024-01-08T11:50:25.033Z",
+      "endTime": "2024-01-08T11:50:28.182Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 0
+    },
+    {
+      "taskId": "@hojoon/react-components-layout:build",
+      "target": "build",
+      "projectName": "@hojoon/react-components-layout",
+      "hash": "9348458594877637039",
+      "startTime": "2024-01-08T11:50:28.183Z",
+      "endTime": "2024-01-08T11:50:31.625Z",
       "params": "",
       "cacheStatus": "cache-miss",
       "status": 0
