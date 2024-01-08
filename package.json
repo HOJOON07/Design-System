@@ -8,7 +8,10 @@
   ],
   "scripts": {
     "build": "nx build",
-    "graph": "nx run-many --target=build --graph"
+    "graph": "nx run-many --target=build --graph",
+    "dev:all": "yarn dev:storybook & yarn dev:packages",
+    "dev:storybook": "nx storybook @hojoon/storybook",
+    "dev:packages": "nx run-many --target=dev --projects='@hojoon/react-components-*'"
   },
   "author": "",
   "license": "ISC",
