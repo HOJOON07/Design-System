@@ -10,7 +10,7 @@ export default {
   },
 };
 
-export const BlockStory = {
+export const Box = {
   args: {
     as: "button",
     padding: "5",

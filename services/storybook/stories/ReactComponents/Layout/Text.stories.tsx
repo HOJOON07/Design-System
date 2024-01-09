@@ -3,7 +3,7 @@ import { Text as _Text } from "@hojoon/react-components-layout";
 import { classes, vars } from "@hojoon/themes";
 
 export default {
-  title: "React Components/Layout/Typography/Text",
+  title: "React Components/Typography/Text",
   component: _Text,
   tags: ["autodocs"],
   parameters: {
@@ -21,7 +21,7 @@ export default {
   },
 };
 
-export const BlockStory = {
+export const Text = {
   args: {
     as: "p",
     fontSize: "sm",

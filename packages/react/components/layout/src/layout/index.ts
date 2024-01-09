@@ -1,2 +1,12 @@
 export { Box } from "./Box";
-export type { BoxProps } from "./types";
+export { Divider } from "./Divider";
+export { Flex } from "./Flex";
+export { Grid } from "./Grid";
+export { GridItem } from "./GridItem";
+export type {
+  BoxProps,
+  DividerProps,
+  FlexProps,
+  GridProps,
+  GridItemProps,
+} from "./types";
