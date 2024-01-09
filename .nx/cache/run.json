@@ -1,43 +1,32 @@
 {
   "run": {
-    "command": "nx build @hojoon/react-components-layout",
-    "startTime": "2024-01-08T11:50:24.328Z",
-    "endTime": "2024-01-08T11:50:31.625Z",
+    "command": "nx run-many --target=dev --projects=@hojoon/react-components-*",
+    "startTime": "2024-01-09T21:12:26.873Z",
+    "endTime": "2024-01-09T21:41:11.150Z",
     "inner": false
   },
   "tasks": [
     {
-      "taskId": "@hojoon/esbuild-config:build",
-      "target": "build",
-      "projectName": "@hojoon/esbuild-config",
-      "hash": "12525466969743518836",
-      "startTime": "2024-01-08T11:50:24.331Z",
-      "endTime": "2024-01-08T11:50:25.032Z",
+      "taskId": "@hojoon/react-components-button:dev",
+      "target": "dev",
+      "projectName": "@hojoon/react-components-button",
+      "hash": "11729373206241673478",
+      "startTime": "2024-01-09T21:12:26.878Z",
+      "endTime": "2024-01-09T21:41:11.149Z",
       "params": "",
       "cacheStatus": "cache-miss",
-      "status": 0
+      "status": 1
     },
     {
-      "taskId": "@hojoon/themes:build",
-      "target": "build",
-      "projectName": "@hojoon/themes",
-      "hash": "5855192310410103058",
-      "startTime": "2024-01-08T11:50:25.033Z",
-      "endTime": "2024-01-08T11:50:28.182Z",
-      "params": "",
-      "cacheStatus": "cache-miss",
-      "status": 0
-    },
-    {
-      "taskId": "@hojoon/react-components-layout:build",
-      "target": "build",
+      "taskId": "@hojoon/react-components-layout:dev",
+      "target": "dev",
       "projectName": "@hojoon/react-components-layout",
-      "hash": "9348458594877637039",
-      "startTime": "2024-01-08T11:50:28.183Z",
-      "endTime": "2024-01-08T11:50:31.625Z",
+      "hash": "4029178387166793928",
+      "startTime": "2024-01-09T21:12:26.878Z",
+      "endTime": "2024-01-09T21:41:11.150Z",
       "params": "",
       "cacheStatus": "cache-miss",
-      "status": 0
+      "status": 1
     }
   ]
 }

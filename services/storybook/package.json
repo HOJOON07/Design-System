@@ -2,6 +2,7 @@
   "name": "@hojoon/storybook",
   "packageManager": "yarn@4.0.2",
   "devDependencies": {
+    "@hojoon/react-components-button": "workspace:^",
     "@hojoon/react-components-layout": "workspace:^",
     "@hojoon/themes": "workspace:^",
     "@storybook/addon-essentials": "^7.6.7",
@@ -22,5 +23,8 @@
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build": "storybook build"
+  },
+  "dependencies": {
+    "@hojoon/react-hooks-button": "workspace:^"
   }
 }

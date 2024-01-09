@@ -1,0 +1,17 @@
+(node:63752) ExperimentalWarning: Importing JSON modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✘ [ERROR] Expected "]" but found "StyleSprinkles"
+
+    src/layout/Grid.tsx:35:8:
+      35 │         StyleSprinkles(
+         │         ~~~~~~~~~~~~~~
+         ╵         ]
+
+✘ [ERROR] Expected "]" but found "StyleSprinkles"
+
+    src/layout/Grid.tsx:35:8:
+      35 │         StyleSprinkles(
+         │         ~~~~~~~~~~~~~~
+         ╵         ]
+
+(node:63752) Warning: [Warning] The runtime detected new information in a PnP file; reloading the API instance (/Users/hojoon/Desktop/개인 프로젝트 /frontend-desgin-system/.pnp.cjs)
