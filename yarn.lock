@@ -2224,6 +2224,30 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@hojoon/react-components-accordion@workspace:^, @hojoon/react-components-accordion@workspace:packages/react/components/accordion":
+  version: 0.0.0-use.local
+  resolution: "@hojoon/react-components-accordion@workspace:packages/react/components/accordion"
+  dependencies:
+    "@hojoon/esbuild-config": "workspace:^"
+    "@hojoon/react-hooks-button": "workspace:^"
+    "@hojoon/themes": "workspace:^"
+    "@types/react": "npm:^18.2.47"
+    "@types/react-dom": "npm:^18.2.18"
+    "@vanilla-extract/css": "npm:^1.14.0"
+    "@vanilla-extract/dynamic": "npm:^2.1.0"
+    "@vanilla-extract/esbuild-plugin": "npm:^2.3.1"
+    "@vanilla-extract/recipes": "npm:^0.5.1"
+    "@vanilla-extract/sprinkles": "npm:^1.6.1"
+    clsx: "npm:^2.1.0"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+    typescript: "npm:^5.3.3"
+  peerDependencies:
+    "@ghojoon/themes": "*"
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
 "@hojoon/react-components-button@workspace:^, @hojoon/react-components-button@workspace:packages/react/components/button":
   version: 0.0.0-use.local
   resolution: "@hojoon/react-components-button@workspace:packages/react/components/button"
@@ -2307,6 +2331,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hojoon/storybook@workspace:services/storybook"
   dependencies:
+    "@hojoon/react-components-accordion": "workspace:^"
     "@hojoon/react-components-button": "workspace:^"
     "@hojoon/react-components-layout": "workspace:^"
     "@hojoon/react-hooks-button": "workspace:^"

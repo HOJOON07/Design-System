@@ -1,5 +1,65 @@
 {
   "nodes": {
+    "@hojoon/react-components-accordion": {
+      "name": "@hojoon/react-components-accordion",
+      "type": "lib",
+      "data": {
+        "root": "packages/react/components/accordion",
+        "sourceRoot": "packages/react/components/accordion",
+        "name": "@hojoon/react-components-accordion",
+        "projectType": "library",
+        "targets": {
+          "build": {
+            "dependsOn": [
+              "^build"
+            ],
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build"
+            },
+            "configurations": {}
+          },
+          "build:js": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build:js"
+            },
+            "configurations": {}
+          },
+          "build:type": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build:type"
+            },
+            "configurations": {}
+          },
+          "clean": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "clean"
+            },
+            "configurations": {}
+          },
+          "dev": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "dev"
+            },
+            "configurations": {}
+          },
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          }
+        },
+        "implicitDependencies": [],
+        "tags": []
+      }
+    },
     "@hojoon/react-components-button": {
       "name": "@hojoon/react-components-button",
       "type": "lib",
@@ -11470,6 +11530,28 @@
     }
   },
   "dependencies": {
+    "@hojoon/react-components-accordion": [
+      {
+        "source": "@hojoon/react-components-accordion",
+        "target": "@hojoon/react-hooks-button",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-components-accordion",
+        "target": "@hojoon/esbuild-config",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-components-accordion",
+        "target": "@hojoon/themes",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-components-accordion",
+        "target": "npm:typescript",
+        "type": "static"
+      }
+    ],
     "@hojoon/react-components-button": [
       {
         "source": "@hojoon/react-components-button",
@@ -11540,6 +11622,11 @@
     ],
     "@hojoon/esbuild-config": [],
     "@hojoon/storybook": [
+      {
+        "source": "@hojoon/storybook",
+        "target": "@hojoon/react-components-accordion",
+        "type": "static"
+      },
       {
         "source": "@hojoon/storybook",
         "target": "@hojoon/react-hooks-button",

@@ -25,6 +25,7 @@
     "build": "storybook build"
   },
   "dependencies": {
+    "@hojoon/react-components-accordion": "workspace:^",
     "@hojoon/react-hooks-button": "workspace:^"
   }
 }

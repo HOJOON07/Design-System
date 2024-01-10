@@ -11,7 +11,6 @@ export const buttonStyle = recipe({
     padding: 0,
     border: 0,
     background: "none",
-
     borderRadius: vars.box.radii.md,
     display: "flex",
     alignItems: "center",

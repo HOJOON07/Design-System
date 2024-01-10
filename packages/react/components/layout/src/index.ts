@@ -9,5 +9,5 @@ export type {
   GridItemProps,
 } from "./layout";
 
-export { Text } from "./typography";
+export { Text, Heading } from "./typography";
 export type { TextProps, HeadingProps } from "./typography";
