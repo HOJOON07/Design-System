@@ -180,6 +180,186 @@
         "tags": []
       }
     },
+    "@hojoon/react-components-select": {
+      "name": "@hojoon/react-components-select",
+      "type": "lib",
+      "data": {
+        "root": "packages/react/components/select",
+        "sourceRoot": "packages/react/components/select",
+        "name": "@hojoon/react-components-select",
+        "projectType": "library",
+        "targets": {
+          "build": {
+            "dependsOn": [
+              "^build"
+            ],
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build"
+            },
+            "configurations": {}
+          },
+          "build:js": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build:js"
+            },
+            "configurations": {}
+          },
+          "build:type": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build:type"
+            },
+            "configurations": {}
+          },
+          "clean": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "clean"
+            },
+            "configurations": {}
+          },
+          "dev": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "dev"
+            },
+            "configurations": {}
+          },
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          }
+        },
+        "implicitDependencies": [],
+        "tags": []
+      }
+    },
+    "@hojoon/react-components-input": {
+      "name": "@hojoon/react-components-input",
+      "type": "lib",
+      "data": {
+        "root": "packages/react/components/input",
+        "sourceRoot": "packages/react/components/input",
+        "name": "@hojoon/react-components-input",
+        "projectType": "library",
+        "targets": {
+          "build": {
+            "dependsOn": [
+              "^build"
+            ],
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build"
+            },
+            "configurations": {}
+          },
+          "build:js": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build:js"
+            },
+            "configurations": {}
+          },
+          "build:type": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build:type"
+            },
+            "configurations": {}
+          },
+          "clean": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "clean"
+            },
+            "configurations": {}
+          },
+          "dev": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "dev"
+            },
+            "configurations": {}
+          },
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          }
+        },
+        "implicitDependencies": [],
+        "tags": []
+      }
+    },
+    "@hojoon/react-components-toast": {
+      "name": "@hojoon/react-components-toast",
+      "type": "lib",
+      "data": {
+        "root": "packages/react/components/toast",
+        "sourceRoot": "packages/react/components/toast",
+        "name": "@hojoon/react-components-toast",
+        "projectType": "library",
+        "targets": {
+          "build": {
+            "dependsOn": [
+              "^build"
+            ],
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build"
+            },
+            "configurations": {}
+          },
+          "build:js": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build:js"
+            },
+            "configurations": {}
+          },
+          "build:type": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build:type"
+            },
+            "configurations": {}
+          },
+          "clean": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "clean"
+            },
+            "configurations": {}
+          },
+          "dev": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "dev"
+            },
+            "configurations": {}
+          },
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          }
+        },
+        "implicitDependencies": [],
+        "tags": []
+      }
+    },
     "@hojoon/react-hooks-button": {
       "name": "@hojoon/react-hooks-button",
       "type": "lib",
@@ -240,6 +420,66 @@
         "tags": []
       }
     },
+    "@hojoon/react-hooks-select": {
+      "name": "@hojoon/react-hooks-select",
+      "type": "lib",
+      "data": {
+        "root": "packages/react/hooks/select",
+        "sourceRoot": "packages/react/hooks/select",
+        "name": "@hojoon/react-hooks-select",
+        "projectType": "library",
+        "targets": {
+          "build": {
+            "dependsOn": [
+              "^build"
+            ],
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build"
+            },
+            "configurations": {}
+          },
+          "build:js": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build:js"
+            },
+            "configurations": {}
+          },
+          "build:type": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build:type"
+            },
+            "configurations": {}
+          },
+          "clean": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "clean"
+            },
+            "configurations": {}
+          },
+          "dev": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "dev"
+            },
+            "configurations": {}
+          },
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          }
+        },
+        "implicitDependencies": [],
+        "tags": []
+      }
+    },
     "@hojoon/react-hooks-toggle": {
       "name": "@hojoon/react-hooks-toggle",
       "type": "lib",
@@ -247,6 +487,66 @@
         "root": "packages/react/hooks/toggle",
         "sourceRoot": "packages/react/hooks/toggle",
         "name": "@hojoon/react-hooks-toggle",
+        "projectType": "library",
+        "targets": {
+          "build": {
+            "dependsOn": [
+              "^build"
+            ],
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build"
+            },
+            "configurations": {}
+          },
+          "build:js": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build:js"
+            },
+            "configurations": {}
+          },
+          "build:type": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build:type"
+            },
+            "configurations": {}
+          },
+          "clean": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "clean"
+            },
+            "configurations": {}
+          },
+          "dev": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "dev"
+            },
+            "configurations": {}
+          },
+          "nx-release-publish": {
+            "dependsOn": [
+              "^nx-release-publish"
+            ],
+            "executor": "@nx/js:release-publish",
+            "options": {},
+            "configurations": {}
+          }
+        },
+        "implicitDependencies": [],
+        "tags": []
+      }
+    },
+    "@hojoon/react-hooks-input": {
+      "name": "@hojoon/react-hooks-input",
+      "type": "lib",
+      "data": {
+        "root": "packages/react/hooks/input",
+        "sourceRoot": "packages/react/hooks/input",
+        "name": "@hojoon/react-hooks-input",
         "projectType": "library",
         "targets": {
           "build": {
@@ -11591,6 +11891,72 @@
         "type": "static"
       }
     ],
+    "@hojoon/react-components-select": [
+      {
+        "source": "@hojoon/react-components-select",
+        "target": "@hojoon/react-hooks-select",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-components-select",
+        "target": "@hojoon/esbuild-config",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-components-select",
+        "target": "@hojoon/themes",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-components-select",
+        "target": "npm:typescript",
+        "type": "static"
+      }
+    ],
+    "@hojoon/react-components-input": [
+      {
+        "source": "@hojoon/react-components-input",
+        "target": "@hojoon/react-hooks-input",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-components-input",
+        "target": "@hojoon/esbuild-config",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-components-input",
+        "target": "@hojoon/themes",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-components-input",
+        "target": "npm:typescript",
+        "type": "static"
+      }
+    ],
+    "@hojoon/react-components-toast": [
+      {
+        "source": "@hojoon/react-components-toast",
+        "target": "@hojoon/react-hooks-select",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-components-toast",
+        "target": "@hojoon/esbuild-config",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-components-toast",
+        "target": "@hojoon/themes",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-components-toast",
+        "target": "npm:typescript",
+        "type": "static"
+      }
+    ],
     "@hojoon/react-hooks-button": [
       {
         "source": "@hojoon/react-hooks-button",
@@ -11608,6 +11974,23 @@
         "type": "static"
       }
     ],
+    "@hojoon/react-hooks-select": [
+      {
+        "source": "@hojoon/react-hooks-select",
+        "target": "@hojoon/react-hooks-input",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-hooks-select",
+        "target": "@hojoon/esbuild-config",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-hooks-select",
+        "target": "npm:typescript",
+        "type": "static"
+      }
+    ],
     "@hojoon/react-hooks-toggle": [
       {
         "source": "@hojoon/react-hooks-toggle",
@@ -11616,6 +11999,18 @@
       },
       {
         "source": "@hojoon/react-hooks-toggle",
+        "target": "npm:typescript",
+        "type": "static"
+      }
+    ],
+    "@hojoon/react-hooks-input": [
+      {
+        "source": "@hojoon/react-hooks-input",
+        "target": "@hojoon/esbuild-config",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/react-hooks-input",
         "target": "npm:typescript",
         "type": "static"
       }
@@ -11629,12 +12024,27 @@
       },
       {
         "source": "@hojoon/storybook",
+        "target": "@hojoon/react-components-select",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/storybook",
+        "target": "@hojoon/react-components-toast",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/storybook",
         "target": "@hojoon/react-hooks-button",
         "type": "static"
       },
       {
         "source": "@hojoon/storybook",
         "target": "@hojoon/react-components-button",
+        "type": "static"
+      },
+      {
+        "source": "@hojoon/storybook",
+        "target": "@hojoon/react-components-input",
         "type": "static"
       },
       {

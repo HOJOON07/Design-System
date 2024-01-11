@@ -3,6 +3,7 @@
   "packageManager": "yarn@4.0.2",
   "devDependencies": {
     "@hojoon/react-components-button": "workspace:^",
+    "@hojoon/react-components-input": "workspace:^",
     "@hojoon/react-components-layout": "workspace:^",
     "@hojoon/themes": "workspace:^",
     "@storybook/addon-essentials": "^7.6.7",
@@ -26,6 +27,8 @@
   },
   "dependencies": {
     "@hojoon/react-components-accordion": "workspace:^",
+    "@hojoon/react-components-select": "workspace:^",
+    "@hojoon/react-components-toast": "workspace:^",
     "@hojoon/react-hooks-button": "workspace:^"
   }
 }
