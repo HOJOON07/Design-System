@@ -1,32 +1,21 @@
 {
   "run": {
-    "command": "nx run-many --target=dev --projects=@hojoon/react-components-*",
-    "startTime": "2024-01-09T21:12:26.873Z",
-    "endTime": "2024-01-09T21:41:11.150Z",
+    "command": "nx affected -t test --parallel=3",
+    "startTime": "2024-01-12T06:24:16.460Z",
+    "endTime": "2024-01-12T06:24:19.297Z",
     "inner": false
   },
   "tasks": [
     {
-      "taskId": "@hojoon/react-components-button:dev",
-      "target": "dev",
-      "projectName": "@hojoon/react-components-button",
-      "hash": "11729373206241673478",
-      "startTime": "2024-01-09T21:12:26.878Z",
-      "endTime": "2024-01-09T21:41:11.149Z",
+      "taskId": "@hojoon/storybook:test",
+      "target": "test",
+      "projectName": "@hojoon/storybook",
+      "hash": "16360978050764445106",
+      "startTime": "2024-01-12T06:24:16.462Z",
+      "endTime": "2024-01-12T06:24:19.297Z",
       "params": "",
       "cacheStatus": "cache-miss",
-      "status": 1
-    },
-    {
-      "taskId": "@hojoon/react-components-layout:dev",
-      "target": "dev",
-      "projectName": "@hojoon/react-components-layout",
-      "hash": "4029178387166793928",
-      "startTime": "2024-01-09T21:12:26.878Z",
-      "endTime": "2024-01-09T21:41:11.150Z",
-      "params": "",
-      "cacheStatus": "cache-miss",
-      "status": 1
+      "status": 0
     }
   ]
 }

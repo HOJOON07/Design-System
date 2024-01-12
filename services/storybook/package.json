@@ -35,9 +35,11 @@
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:ui": "vitest --ui",
-    "chromatic": "npx chromatic --project-token=chpt_9b44a14957bbdd2"
+    "chromatic": "npx chromatic --project-token=chpt_9b44a14957bbdd2",
+    "build": "npx chromatic --project-token=chpt_9b44a14957bbdd2"
   },
   "dependencies": {
     "@hojoon/react-components-accordion": "workspace:^",
