@@ -41,7 +41,7 @@ export const useButton: OverloadedButtonFunction = (props: any): any => {
     ...props,
     "data-loading": isLoading,
     tabIndex: disabled ? undefined : tabIndex ?? 0,
-    onkeydown: handleKeyDown,
+    onKeydown: handleKeyDown,
   };
   let additionalProps = {};
 

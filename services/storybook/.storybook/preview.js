@@ -49,6 +49,4 @@ const initTheme = () => {
   });
 };
 
-initTheme();
-
 export default preview;

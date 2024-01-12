@@ -9,7 +9,7 @@ export default {
   parameters: {
     layout: "centered",
   },
-  tags: ["autodocs"],
+  // tags: ["autodocs"],
 };
 
 const Example = () => {
@@ -29,7 +29,7 @@ const Example = () => {
   );
 };
 
-export const ButtonStory = {
+export const ToastStory = {
   render: () => (
     <ToastProvider>
       <Example />
