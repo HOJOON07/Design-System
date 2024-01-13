@@ -1,0 +1,411 @@
+# 버튼 컴포넌트 만들기
+
+> 그전에 공부한걸 정리할겸 디자인 시스템 컴포넌트를 만드는데 간단한 개념부터 정리해두고 가자
+
+## Headless Component란?
+
+> 스타일과 기능을 분리하여 설계하는 방식
+
+### 장점
+
+- 관심사 분리
+  - UI와 기능이 분리되어 각각 나누어 고민하고 개발을 하게되어 코드 품질이 좋아진다.
+- 유지보수 용이성
+  - interface 또는 기능이 변경 될 경우 일괄로 반영할 수 있다.
+- 재사용성
+  - 기능만 제공하기 때문에 다양한 곳에서 사용할 수 있게 된다.
+
+## Headless 구현 방식
+
+- Hooks
+- Compound
+- Function as Child
+
+## 우선 일반적으로 쉽게 만드는 재사용 가능한, Headless하지 않은 버튼부터 만들어보자
+
+### 버튼 타입 설계 해주기
+
+- 이건 레이아웃 컴포넌트 만들면서 너무 많이 했다. 쉽다 설명 생략함
+
+```ts
+import { vars } from "@hojoon/themes";
+import * as React from "react";
+export type ButtonProps = {
+  color?: keyof typeof vars.colors.$scale;
+  isDisabled?: boolean;
+  isLoading?: boolean;
+  size?: "xs" | "sm" | "md" | "lg";
+  variant?: "solid" | "outline" | "ghost";
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+```
+
+### 버튼 스타일 만들기
+
+- chakra ui 버튼 디자인 시스템을 따라 만들고 있다.
+- vanilla extract로 css를 구현중
+  - vanilla extract createvar api를 사용할 것임
+
+```ts
+export const enableColorVariant = createVar();
+export const hoverColorVariant = createVar();
+export const activeColorVariant = createVar();
+
+outline: {
+  border: `1px solid ${enableColorVariant}`,
+  color: enableColorVariant,
+
+  "&:hover:not([disabled])": {
+     backgroundColor: hoverColorVariant,
+    },
+  "&:active:not([disabled])": {
+     backgroundColor: activeColorVariant,
+    },
+      },
+```
+
+동적으로 css 변수를 설정해주기 위함이다.
+이렇게 하고 컴포넌트에서 인라인으로 스타일을 줄 수 있다.
+
+```js
+ style={{
+       ...assignInlineVars({
+         [enableColorVariant]: enableColor,
+         [hoverColorVariant]: hoverColor,
+         [activeColorVariant]: activeColor,
+       }),
+       ...style,
+     }}
+```
+
+## 결과물
+
+- 버튼에 포커스가 갔을 때 스페이스바랑 엔터키 입력에 대응하도록 함
+  - onkeydown 이벤트 핸들러 함수를 만들었고, role="button"추가
+- 버튼에 왼쪽, 오른쪽 svg아이콘이 있거나 없는 경우에 맞게 스타일을 대응함
+
+```js
+const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
+  const {
+    children,
+    variant = "solid",
+    size = "md",
+    color = "gray",
+    isDisabled = false,
+    style,
+    leftIcon,
+    rightIcon,
+    isLoading,
+    onKeyDown,
+  } = props;
+
+  const enableColor = vars.colors.$scale[color][500];
+  const hoverColor =
+    variant === "solid"
+      ? vars.colors.$scale[color][600]
+      : vars.colors.$scale[color][50];
+
+  const activeColor =
+    variant === "solid"
+      ? vars.colors.$scale[color][700]
+      : vars.colors.$scale[color][100];
+
+  const disabled = isDisabled || isLoading;
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    onKeyDown?.(e);
+
+    if (e.key === "Enter" || e.key === "13") {
+      e.preventDefault();
+      e.currentTarget.click();
+    }
+  };
+
+  return (
+    <button
+      // 기능
+      {...props}
+      onKeyDown={handleKeyDown}
+      role="button"
+      data-loading={isLoading}
+      disabled={disabled}
+      ref={ref}
+      // 디자인
+      className={clsx([
+        buttonStyle({
+          size,
+          variant,
+        }),
+      ])}
+      style={{
+        ...assignInlineVars({
+          [enableColorVariant]: enableColor,
+          [hoverColorVariant]: hoverColor,
+          [activeColorVariant]: activeColor,
+        }),
+        ...style,
+      }}
+    >
+      {isLoading && <div className={spinnerStyle({ size })}></div>}
+      {leftIcon && <span>{leftIcon}</span>}
+      <span>{children}</span>
+      {rightIcon && <span>{rightIcon}</span>}
+    </button>
+  );
+};
+
+const _Button = React.forwardRef(Button);
+
+export { _Button as Button };
+
+```
+
+## Headless하게 만들기
+
+- 우선 이전에 만든 작업물은 dom이 버튼일때만 가정하고 만듬
+
+#### button, a, div, span, input 요소일때 대응하도록 만들어주기
+
+- disabled, loading과 같은 상태는 기능을 분리하도록 할것임
+
+### 타입 설계
+
+```ts
+export type ButtonElementType = "button" | "a" | "div" | "span" | "input";
+
+export type BaseButtonProps<T extends ButtonElementType = "button"> = {
+  elementType?: T;
+  role?: string;
+  type?: "button" | "submit" | "reset";
+  isDisabled?: boolean;
+  isLoading?: boolean;
+  tabIndex?: number;
+} & ComponentProps<T>;
+
+export type UseButtonReturn<T> = {
+  buttonProps: HTMLAttributes<T> & {
+    role?: string;
+    type?: "button" | "submit" | "reset";
+    tabIndex?: number;
+    disabled?: boolean;
+    "data-loading": boolean;
+  };
+};
+```
+
+## useButton 훅 만들기
+
+```ts
+// props로 button의 상태를 받아온다.
+// 버튼 타입중 기능
+// return으로 button 또는 각 컴포넌트의 속성으로 return => 버튼에서 필요한 속성도 추가되어야 한다
+import { BaseButtonProps, OverloadedButtonFunction } from "./types";
+
+export const useButton: OverloadedButtonFunction = (props: any): any => {
+  const {
+    elementType = "button",
+    isDisabled,
+    isLoading,
+    tabIndex,
+    onKeyDown,
+    type = "button",
+  } = props;
+
+  const disabled = isDisabled || isLoading;
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    onKeyDown?.(e);
+    if (e.key === " " || e.key === "Spacebar" || e.key === "32") {
+      if (disabled) return;
+      if (e.defaultPrevented) return;
+      if (elementType === "button") return;
+
+      e.preventDefault();
+      (e.currentTarget as HTMLElement).click();
+      return;
+    }
+
+    if (e.key === "Enter" || e.key === "13") {
+      if (disabled) return;
+      if (e.defaultPrevented) return;
+      if (elementType === "input" && type !== "button") return;
+      e.preventDefault();
+      (e.currentTarget as HTMLElement).click();
+      return;
+    }
+  };
+
+  const baseProps = {
+    ...props,
+    "data-loading": isLoading,
+    tabIndex: disabled ? undefined : tabIndex ?? 0,
+    onkeydown: handleKeyDown,
+  };
+  let additionalProps = {};
+
+  switch (elementType) {
+    case "button": {
+      additionalProps = {
+        type: type ?? "button",
+        disabled,
+      };
+      break;
+    }
+    case "a": {
+      const { href, target, rel } = props as BaseButtonProps<"a">;
+
+      additionalProps = {
+        role: "button",
+        href: disabled ? undefined : href,
+        target: disabled ? undefined : target,
+        rel: disabled ? undefined : rel,
+        "area-disabled": isDisabled,
+      };
+      break;
+    }
+    case "input": {
+      additionalProps = {
+        role: "button",
+        type: props.type,
+        disabled,
+        "area-disabled": undefined,
+      };
+      break;
+    }
+    default: {
+      additionalProps = {
+        role: "button",
+        type: type ?? "button",
+        "area-disabled": isDisabled,
+      };
+      break;
+    }
+  }
+
+  const buttonProps = {
+    ...baseProps,
+    ...additionalProps,
+  };
+
+  return {
+    buttonProps,
+  };
+};
+```
+
+## 만든 useButton 훅 가져다 쓰기
+
+- headless하게 만들기 위해서 기능과 스타일을 분리했음
+  - 원래 만들었던 버튼 컴포넌트에서 disabled, onkeydown프롭스는 더이상 받지 않기때문에 빼줬다.
+- 버튼태그에 useButton으로 가져오는 buttonProps를 구조분해할당으로 넣어줌
+
+```ts
+const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
+  const { buttonProps } = useButton(props);
+  const {
+    children,
+    variant = "solid",
+    size = "md",
+    color = "gray",
+    style,
+    leftIcon,
+    rightIcon,
+    isLoading,
+  } = props;
+
+  const enableColor = vars.colors.$scale[color][500];
+  const hoverColor =
+    variant === "solid"
+      ? vars.colors.$scale[color][600]
+      : vars.colors.$scale[color][50];
+
+  const activeColor =
+    variant === "solid"
+      ? vars.colors.$scale[color][700]
+      : vars.colors.$scale[color][100];
+
+  return (
+    <button
+      // 기능
+      {...buttonProps}
+      {...props}
+      role="button"
+      data-loading={isLoading}
+      ref={ref}
+      // 디자인
+      className={clsx([
+        buttonStyle({
+          size,
+          variant,
+        }),
+      ])}
+      style={{
+        ...assignInlineVars({
+          [enableColorVariant]: enableColor,
+          [hoverColorVariant]: hoverColor,
+          [activeColorVariant]: activeColor,
+        }),
+        ...style,
+      }}
+    >
+      {isLoading && <div className={spinnerStyle({ size })}></div>}
+      {leftIcon && <span>{leftIcon}</span>}
+      <span>{children}</span>
+      {rightIcon && <span>{rightIcon}</span>}
+    </button>
+  );
+};
+
+const _Button = React.forwardRef(Button);
+
+export { _Button as Button };
+
+```
+
+## 활용해서 toggle버튼 만들기
+
+> 클릭하면 상태가 바뀌는 useButton의 심화버전인 useToggle도 훅패턴으로 headless하게 만들수 있다.
+
+### 개념이랑 원리는 useButton과 크게 차이가 없으니 코드만 첨부하도록 하겠음
+
+```ts
+export const useToggle = ({
+  isSelected = false,
+}: ToggleProps): UseToggleReturn => {
+  const [toggle, setToggle] = useState<boolean>(isSelected);
+
+  const handleToggle = useCallback(() => {
+    setToggle((prev) => !prev);
+  }, []);
+  return {
+    isSelected: toggle,
+    setSelected: setToggle,
+    toggle: handleToggle,
+  };
+};
+```
+
+- 스토리북에서 컴포넌트 확인하기
+
+```
+export const ToggleButtonStory = {
+  render: () => {
+    const { buttonProps, isSelected } = useToggleButton(
+      {
+        elementType: "button",
+      },
+      false,
+    );
+    return (
+      <_Button
+        {...buttonProps}
+        variant={isSelected ? "solid" : "outline"}
+        color="green"
+      >
+        {isSelected ? "셀렉" : "노셀렉 "}
+      </_Button>
+    );
+  },
+};
+```

@@ -1,0 +1,368 @@
+## 컴포넌트 만들고 스토리북에서 확인하기
+
+### 만들면서 새롭게 알게 된게 많아서 바로 정리해서 기록해보려고 한다.
+
+### Box 컴포넌트부터 만들기
+
+- 비제어 컴포넌트가 될수도 있으니 ref 넣어주기
+- react.createElement로 생성
+
+```
+import { Ref } from "react";
+import { BoxProps } from "./types";
+import * as React from "react";
+
+const Box = (props: BoxProps, ref: Ref<HTMLElement>) => {
+  const { as = "div", children } = props;
+
+  return React.createElement(
+    as,
+    {
+      ...props,
+      ref,
+      className: props.className,
+      style: {
+        background: "yellow",
+        width: "100px",
+        height: "100px",
+      },
+    },
+    children,
+  );
+};
+
+const _Box = React.forwardRef(Box);
+export { _Box as Box };
+
+```
+
+### forwardRef
+
+> ### forwardRef
+>
+> React에서 특수한 목적으로 사용되기 때문에 일반적인 용도로 사용할 수 없는 prop이 몇 가지 있습니다. 대표적인 예로 루프를 돌면서 동일한 컴포넌트 여러 번 랜더링할 때 사용하는 key prop을 들 수 있는데요. ref prop도 마찬가지로 HTML 엘리먼트 접근이라는 특수한 용도로 사용되기 때문에 일반적인 prop으로 사용을 할 수 없습니다. <br/>
+> HTML 엘리먼트가 아닌 React 컴포넌트에서 ref prop을 사용하려면 React에서 제공하는 forwardRef()라는 함수를 사용해야 합니다. React 컴포넌트를 forwardRef()라는 함수로 감싸주면, 해당 컴포넌트는 함수는 두 번째 매개 변수를 갖게 되는데, 이를 통해 외부에서 ref prop을 넘길 수 있습니다.
+
+```jsx
+import React, { forwardRef, useRef } from "react";
+
+const Input = forwardRef((props, ref) => {
+  return <input type="text" ref={ref} />;
+});
+
+function Field() {
+  const inputRef = useRef(null);
+
+  function handleFocus() {
+    inputRef.current.focus();
+  }
+
+  return (
+    <>
+      <Input ref={inputRef} />
+      <button onClick={handleFocus}>입력란 포커스</button>
+    </>
+  );
+}
+```
+
+## 타입 설계하기
+
+- 우선 폴더 구조
+  ![](https://velog.velcdn.com/images/ghwns1007/post/54161001-8a6f-4e7b-a876-a2898206a6ec/image.png)
+
+- core/types.ts
+- 코어 타입을 설계하고 export해준다음에
+
+```ts
+// Exclude는 뒤에오는 타입을 제외하겠다는 건데
+// AsProps에서는 IntrinsicElements에서 svg타입들을 제외하고 받겠다는 말이다.
+
+type AsProps = {
+  as?: Exclude<keyof JSX.IntrinsicElements, keyof SVGElementTagNameMap>;
+};
+
+type ElementProps = Omit<React.HtmlHTMLAttributes<HTMLElement>, "as">;
+
+export type AsElementProps = AsProps & ElementProps;
+```
+
+- 사용할 컴포넌트의 types.ts
+
+```ts
+import { AsElementProps } from "../core/types";
+
+export type BoxProps = AsElementProps;
+```
+
+## Sprinkles, Recipes, clsx, 사용해서 동적으로 값을 바꿔 주기
+
+- Sprinkls 예시
+- 이렇게 defineProperties로 속성들을 커스텀 해주고
+
+```ts
+import { defineProperties, createSprinkles } from "@vanilla-extract/sprinkles";
+
+const space = {
+  none: 0,
+  small: "4px",
+  medium: "8px",
+  large: "16px",
+  // etc.
+};
+
+const responsiveProperties = defineProperties({
+  conditions: {
+    mobile: {},
+    tablet: { "@media": "screen and (min-width: 768px)" },
+    desktop: { "@media": "screen and (min-width: 1024px)" },
+  },
+  defaultCondition: "mobile",
+  properties: {
+    display: ["none", "flex", "block", "inline"],
+    flexDirection: ["row", "column"],
+    justifyContent: [
+      "stretch",
+      "flex-start",
+      "center",
+      "flex-end",
+      "space-around",
+      "space-between",
+    ],
+    alignItems: ["stretch", "flex-start", "center", "flex-end"],
+    paddingTop: space,
+    paddingBottom: space,
+    paddingLeft: space,
+    paddingRight: space,
+    // etc.
+  },
+  shorthands: {
+    padding: ["paddingTop", "paddingBottom", "paddingLeft", "paddingRight"],
+    paddingX: ["paddingLeft", "paddingRight"],
+    paddingY: ["paddingTop", "paddingBottom"],
+    placeItems: ["justifyContent", "alignItems"],
+  },
+});
+
+const colors = {
+  "blue-50": "#eff6ff",
+  "blue-100": "#dbeafe",
+  "blue-200": "#bfdbfe",
+  "gray-700": "#374151",
+  "gray-800": "#1f2937",
+  "gray-900": "#111827",
+  // etc.
+};
+
+const colorProperties = defineProperties({
+  conditions: {
+    lightMode: {},
+    darkMode: { "@media": "(prefers-color-scheme: dark)" },
+  },
+  defaultCondition: "lightMode",
+  properties: {
+    color: colors,
+    background: colors,
+    // etc.
+  },
+});
+
+export const sprinkles = createSprinkles(responsiveProperties, colorProperties);
+
+// It's a good idea to export the Sprinkles type too
+export type Sprinkles = Parameters<typeof sprinkles>[0];
+```
+
+- Usage (css.ts)
+
+```ts
+import { sprinkles } from "./sprinkles.css.ts";
+
+export const container = sprinkles({
+  display: "flex",
+  paddingX: "small",
+
+  // Conditional sprinkles:
+  flexDirection: {
+    mobile: "column",
+    desktop: "row",
+  },
+  background: {
+    lightMode: "blue-50",
+    darkMode: "gray-700",
+  },
+});
+```
+
+- Usage 2 (app.ts)
+
+```ts
+app.ts;
+import { sprinkles } from "./sprinkles.css.ts";
+
+const flexDirection = Math.random() > 0.5 ? "column" : "row";
+
+document.write(`
+  <section class="${sprinkles({
+    display: "flex",
+    flexDirection,
+  })}">
+    ...
+  </section>
+`);
+```
+
+### chakra ui components 만들기
+
+- Box
+- Flex
+- Grid
+- Divider
+- GridItem
+
+#### 타입 선언
+
+```tsx
+import { vars } from "@hojoon/themes";
+import { AsElementProps, StyleProps } from "../core/types";
+import * as React from "react";
+import { CSSProperties } from "@vanilla-extract/css";
+
+export type BoxProps = AsElementProps & StyleProps;
+
+export type DividerProps = {
+  orientation?: "horizontal" | "vertical";
+  color?: keyof typeof vars.colors.$scale;
+  size?: number;
+  variant?: "solid" | "dashed";
+} & React.HTMLAttributes<HTMLHRElement>;
+
+export type FlexProps = {
+  align?: CSSProperties["alignItems"];
+  basis?: CSSProperties["flexBasis"];
+  direction?: CSSProperties["flexDirection"];
+  grow?: CSSProperties["flexGrow"];
+  justify?: CSSProperties["justifyContent"];
+  shrink?: CSSProperties["flexShrink"];
+  wrap?: CSSProperties["flexWrap"];
+  gap?: CSSProperties["gap"];
+} & BoxProps;
+
+export type GridProps = {
+  autoColumns?: CSSProperties["gridAutoColumns"];
+  autoFlow?: CSSProperties["gridAutoFlow"];
+  autoRows?: CSSProperties["gridAutoRows"];
+  column?: CSSProperties["gridColumn"];
+  columnGap?: CSSProperties["columnGap"];
+  gap?: CSSProperties["gap"];
+  row: CSSProperties["gridRow"];
+  rowGap?: CSSProperties["rowGap"];
+  templateAreas?: CSSProperties["gridTemplateAreas"];
+  templateColumns?: CSSProperties["gridTemplateColumns"];
+  templateRows?: CSSProperties["gridTemplateRows"];
+} & BoxProps;
+
+export type GridItemProps = {
+  area?: CSSProperties["gridArea"];
+  colEnd?: CSSProperties["gridColumnEnd"];
+  colStart?: CSSProperties["gridColumnStart"];
+  colSpan?: CSSProperties["gridColumn"];
+  rowEnd?: CSSProperties["gridRowEnd"];
+  rowStart?: CSSProperties["gridRowStart"];
+  rowSpan?: CSSProperties["gridRow"];
+} & BoxProps;
+```
+
+- Grid 컴포넌트 예시 (나머지는 생략하겠음 비슷한 방법이기때문에)
+
+```tsx
+import { Ref } from "react";
+import { GridProps } from "./types";
+import * as React from "react";
+import { clsx } from "clsx";
+import { StyleSprinkles } from "../core/style.css";
+import { extractSprinkleProps } from "../utils/properties";
+import { vars } from "@hojoon/themes";
+
+const Grid = (props: GridProps, ref: Ref<HTMLElement>) => {
+  const {
+    as = "div",
+    color,
+    background,
+    autoColumns,
+    autoFlow,
+    autoRows,
+    column,
+    columnGap,
+    gap,
+    row,
+    rowGap,
+    templateAreas,
+    templateColumns,
+    templateRows,
+    children,
+  } = props;
+
+  return React.createElement(
+    as,
+    {
+      ...props,
+      ref,
+      className: clsx([
+        StyleSprinkles(
+          extractSprinkleProps(props, Array.from(StyleSprinkles.properties)),
+        ),
+        props.className,
+      ]),
+      style: {
+        display: "grid",
+        gridAutoColumns: autoColumns,
+        gridAutoFlow: autoFlow,
+        gridAutoRows: autoRows,
+        gridColumnGap: columnGap,
+        gridGap: gap,
+        gridRowGap: rowGap,
+        gridTemplateColumns: templateColumns,
+        gridTemplateRows: templateRows,
+        gridTemplateAreas: templateAreas,
+        gridColumn: column,
+        gridRow: row,
+        color: color && vars.colors.$scale?.[color]?.[700],
+        background: background && vars.colors.$scale?.[background]?.[100],
+        ...props.style,
+      },
+    },
+    children,
+  );
+};
+
+const _Grid = React.forwardRef(Grid);
+export { _Grid as Grid };
+```
+
+> className을 props값에 따라 여러 클래스를 가지게 하기 위해서 clsx모듈을 사용했고 각각 StyleSprinkles 프로퍼티들을 추출해줬다.
+> 다만 key값들을 제대로 프롭스에 할당해주기 위해서 유틸함수를 만들어야 했는데
+
+- utils/properties.ts
+
+```ts
+// props를 전달해주고
+// spinkles에 해당하는 프롭스만 추출해주는 함수를 만듬
+export const extractSprinkleProps = <T extends Object>(
+  props: T,
+  keys: (keyof T)[],
+) => {
+  const result: any = {};
+
+  keys.forEach((key) => {
+    if (props?.[key]) {
+      result[key] = props[key];
+    }
+  });
+  return result;
+};
+```
+
+## 레이아웃 끝!
+
+> 아직 생소하고 따라가기 어렵지만 열심히 머리에 우겨넣고 있다. 강의 10분짜리 들어도 한시간 넘게 찾아보고 그래야함 ㅎㅎ 가성비 안좋은 머리다

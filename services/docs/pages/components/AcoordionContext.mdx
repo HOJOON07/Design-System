@@ -1,0 +1,204 @@
+## 공식문서
+
+> **useContext**는 컴포넌트에서 **context**를 읽고 구독할 수 있게 해주는 **React** **Hook입니다**.
+
+- 컴포넌트의 최상위 레벨에서 useContext를 호출하여 context를 읽고 구독합니다.
+
+```jsx
+const value = useContext(SomeContext);
+```
+
+- **_useContext는_** 전달한 context에 대한 context 값을 반환합니다. context 값을 결정하기 위해 React는 컴포넌트 트리를 검색하고 특정 context에 대해 위에서 가장 가까운 context provider를 찾습니다.
+
+### Return Context
+
+> - 읽다보면 중요한 말이 있다.
+> - useContext는 호출하는 컴포넌트에 대한 context 값을 반환합니다. 이 값은 호출한 컴포넌트에서 트리상 위에 있는 가장 가까운 SomeContext.Provider에 전달된 value입니다. 이러한 provider가 없는 경우 반환되는 값은 해당 context에 대해 createContext에 전달한 defaultValue가 됩니다. 반환된 값은 항상 최신 값입니다.
+
+- React는 _**context가 변경되면 context를 읽는 컴포넌트를 자동으로 리렌더링합니다.**_
+
+#### 스포 느낌의 작성이지만 context api는 전역 상태를 할수있게 해주는 일종의 수단일 뿐이라는 것이다.
+
+## 사용법
+
+> - 이 글을 쓰는 목적이다. ㅋㅋ 맨날 쓸때마다 헷갈리고 정리가 안된 상태로 막 갖다붙이니까 더 뒤죽박죽 되는거 같아서 나만의 순서를 만들어서 정리해보려고 한다.
+
+### 1. createContext
+
+```jsx
+export const AccordionContext =
+  createContext <
+  AccordionContextType >
+  {
+    activeItems: [],
+    setActiveItem: () => {},
+  };
+```
+
+### 2. context객체의 provider 컴포넌트 불러오기
+
+> - 사실은 위에 activeItems, setActiveItem이 context를 만들때는 설계되어 있지 않을수도 있다.
+
+- 그래서 우선 컨텍스트 하나 만들어놓고 provider 컴포넌트를 만든다고 생각하면 좀 편한거 같다.
+
+```jsx
+const Accordion = (props: AccordionProps, ref: React.Ref<HTMLDivElement>) => {
+  const { defaultActiveItems = [], children, className, ...rest } = props;
+
+  const [activeItems, setActiveItems] = useState<string[]>(defaultActiveItems);
+
+  const handleSetActiveItem = (item: string) => {
+    if (activeItems.includes(item)) {
+      setActiveItems(activeItems.filter((activeItem) => activeItem !== item));
+    } else {
+      setActiveItems([...activeItems, item]);
+    }
+  };
+
+  return (
+    <AccordionContext.Provider
+      value={{
+        activeItems,
+        setActiveItem: handleSetActiveItem,
+      }}
+    >
+      <div {...rest} ref={ref} className={clsx([accordionStyle, className])}>
+        {children}
+      </div>
+    </AccordionContext.Provider>
+  );
+};
+
+const _Accordion = React.forwardRef(Accordion);
+export { _Accordion as Accordion };
+
+```
+
+- 코드로만 보면 지금 무슨말 하는지 이해가 안갈수도 있는데 일단 결과물 자체는 재사용 가능한 Accordion UI 컴포넌트이다.
+
+### Compound Pattern Component
+
+```jsx
+<Accordion defaultActiveItems={["목록1"]} style={{ width: "500px" }}>
+  <AccordionItem itemName="목록1">
+    <AccordionButton>
+      <Heading color="gray" fontSize="lg">
+        목록 1
+      </Heading>
+    </AccordionButton>
+    <AccordionPanel>
+      <Text color="gray" fontSize="md">
+        내용입니다.
+      </Text>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem itemName="목록2">
+    <AccordionButton>
+      <Heading color="gray" fontSize="lg">
+        목록 2
+      </Heading>
+    </AccordionButton>
+    <AccordionPanel>
+      <Text color="gray" fontSize="md">
+        내용입니다.
+        <br />
+        내용입니다.
+      </Text>
+    </AccordionPanel>
+  </AccordionItem>
+</Accordion>
+```
+
+### 마지막은 useContext로 context 가져와서 쓰는 것
+
+```jsx
+export const useAccordionContext = () => useContext(AccordionContext);
+```
+
+### 사용 예시
+
+- 컴파운드 패턴이기 때문에 props drilling을 피해주거나 계속 전달해줘야 하는데 사용하는 아코디언 버튼이나, 아이템, 판넬 컴포넌트에서 context값을 불러 올 수 있다.
+
+```jsx
+AccordionPanel.tsx;
+
+const { activeItems } = useAccordionContext();
+```
+
+```jsx
+AccordionButton.tsx;
+
+const { setActiveItem } = useAccordionContext();
+```
+
+- 이렇게 쓸 수 있다.
+
+## 주의
+
+> 1. React는 변경된 value를 받는 provider부터 시작해서 해당 context를 사용하는 자식들에 대해서까지 전부 자동으로 리렌더링합니다. 이전 값과 다음 값은 Object.is로 비교합니다. memo로 리렌더링을 건너뛰어도 새로운 context 값을 수신하는 자식들을 막지는 못합니다..
+
+> 2.  _**useContext**_()는 항상 그것을 호출하는 컴포넌트 위의 가장 가까운 provider를 찾습니다. useContext()를 호출하는 컴포넌트 내의 provider는 고려하지 않습니다.
+
+> 3.  **_createContext_**(defaultValue) 호출의 기본값은 오직 위쪽에 일치하는 provider가 전혀 없는 경우에만 적용된다는 점에 유의하세요. 부모 트리 어딘가에 SomeContext.Provider value={undefined} 컴포넌트가 있는 경우, useContext(SomeContext)를 호출하는 컴포넌트는 undefined를 context 값으로 받습니다.
+
+> 4.  #### 렌더링 최적화
+
+- 여기서 context 값은 두 개의 프로퍼티를 가진 JavaScript 객체이며, 그 중 하나는 함수입니다. MyApp이 리렌더링할 때마다(예: 라우트 업데이트), 이것은 다른 함수를 가리키는 다른 객체가 될 것이므로 React는 useContext(AuthContext)를 호출하는 트리 깊숙한 곳의**_ 모든 컴포넌트도 리렌더링해야 합니다._**
+- 소규모 앱에서는 문제가 되지 않습니다. 그러나 currentUser와 같은 기초 데이터가 변경되지 않았다면 리렌더링할 필요가 없습니다. React가 이 사실을 활용할 수 있도록 login 함수를 useCallback으로 감싸고 객체 생성은 useMemo로 감싸면 됩니다. 이것은 성능 최적화를 위한 것입니다
+
+```
+const AuthContxt = createContext({
+  currentUser, login
+})
+
+function MyApp() {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  function login(response) {
+    storeCredentials(response.credentials);
+    setCurrentUser(response.user);
+  }
+
+  return (
+    <AuthContext.Provider value={{ currentUser, login }}>
+      <Page />
+    </AuthContext.Provider>
+  );
+}
+```
+
+- 즉, context를 구독하고 있는 모든 컴포넌트는 상태가 변경될 때마다 모두 리렌더링이 일어난다.
+
+### 최적화하기 (공식문서)
+
+```JS
+import { useCallback, useMemo } from 'react';
+
+function MyApp() {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const login = useCallback((response) => {
+    storeCredentials(response.credentials);
+    setCurrentUser(response.user);
+  }, []);
+
+  const contextValue = useMemo(() => ({
+    currentUser,
+    login
+  }), [currentUser, login]);
+
+  return (
+    <AuthContext.Provider value={contextValue}>
+      <Page />
+    </AuthContext.Provider>
+  );
+}
+```
+
+> - 이 변경으로 인해 MyApp이 리렌더링해야 하는 경우에도 currentUser가 변경되지 않는 한 useContext(AuthProvider)를 호출하는 컴포넌트는 리렌더링할 필요가 없습니다.
+
+### 전역상태관리는 Context?
+
+> 내 생각에는 상태관리 라이브러리를 사용하는게 맞다고 생각한다. 이번에 나도 공식문서랑 여러 관련 게시글을 보면서 알게 되었는데 useContext를 잘 몰랐을때는 상태관리 라이브러리가 필요할까라고 생각도 했었다. (ㅋㅋ )<br/> 근데 우선 context를 쓴다면 각기 다른 상태마다 생성해주어야 하고 값이 빈번하게 바뀌는 상태와 구독하고 있는 컴포넌트의 렌더링 최적화를 고려해주어야 한다.
+> 또한 상태관리 라이브러리는 redux, rtk, recoil 정도 사용해보았는데 액션함수와 스토어를 분리해서 관리할 수 있다는 장점도 있었던거 같다. 또한 쓰면서 생각났던건데 프론트엔드 성능 최적화를 할때 공부했던 리덕스에 내장함수 Equalityfn은 렌더링 최적화를 알아서 고려해준다는 장점도 있기 때문에 전역으로 상태관리를 하기위해서라면 상태관리 라이브러리를 사용하는게 훨씬 좋을거 같다.
+> context api는 아코디언, 토스트와 같은 복잡한 컴포넌트 패턴에서 프롭스 드릴링을 피하고 상태관리를 효율적으로 할때 사용하기 좋은거 같다.

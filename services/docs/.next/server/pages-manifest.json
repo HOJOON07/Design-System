@@ -2,6 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
+  "/components/layout": "pages/components/layout.js",
+  "/components/AcoordionContext": "pages/components/AcoordionContext.js",
+  "/components": "pages/components.js",
+  "/hooks": "pages/hooks.js",
   "/themes": "pages/themes.js"
 }

@@ -3,3 +3,1097 @@
 ```bash
 yarn add @hojoon/themes
 ```
+
+# 목차
+
+### 1. 디자인 시스템과 UI 라이브러리
+
+### 2. 디자인 시스템에 기대하는 것
+
+#### 디자인 시스템과 UI 라이브러리의 차이
+
+- 디자인 시스템
+
+> - 브랜드와 제품의 일관성을 유지하고, 팀 간의 협업을 향상시켜 더 빠르고 효과적으로 UI를 디자인하고 구축하는데 도움이 됨
+> - 사용자 인터페이스를 구축하는데 필요한 모든 요소를 정의하는 포괄적인 문서와 가이드라인 집합
+>   ex) 컴포넌트, 패턴, 디자인 원칙, 사용 가이드라인, 툴, 스타일 가이드
+
+- UI 라이브러리
+
+> UI 라이브러리는 구체적인 코드를 포함하는, 재사용 가능한 UI컴포넌트들의 모음
+> 코드의 재사용성을 향상시키고, 팀 간의 협업을 간소화하여, 제품의 UI를 빠르게 구축하는데 도움이 된다.
+> ex) 실제 개발에서 사용할 수 있는 버튼, 입력 폼, 카드 등의 구현체
+
+### 디자인 시스템
+
+- Figma, sketch
+- react, vue
+- 네이티브용 디자인 시스템( Android, ios)
+
+#### 디자인 시스템에게 기대하는 것
+
+- 형태 (style)
+  - 색상
+  - 타이포그라피
+  - 컴포넌트
+  - [Adobe Spectrum](https://spectrum.adobe.com/) 과 [Material Design](https://m3.material.io/)
+
+#### 다양한 요구사항이 생긴다면 문제가 생긴다.
+
+#### 제약과 자유로움 중 적절함을 찾아야 한다.
+
+#### 잘 만들어야 한다
+
+- 너무 제약적으로 만들면 요구사항 마다 대응하기 힘들다.
+- 너무 자유롭게 만들면 하나하나 구현해야 된다.(useRadio처럼 함수를 구현해서 기능을 구현해야 하기 때문에)
+  ![](https://velog.velcdn.com/images/ghwns1007/post/06721135-359e-470f-b2e8-c880a12c7e1a/image.png)
+- 기능
+  - 입력 (클릭, 타이핑)
+  - 선택 (라디오, 체크박스, 토글)
+- 접근성
+  - 컬러 대비
+  - 키보드 네비게이션
+
+## 디자인 시스템의 구조
+
+1. 원칙 : 디자인과 개발에 대한 핵심 가치 및 지침 (린트, 허스키)
+2. 테마 : 색상, 타이포그래피, 그리드, 스페이싱 등과 같은 기본 디자인 요소에 대한 지침
+3. 컴포넌트 : 버튼, 입력란, 탭, 모달 등과 같은 재사용 가능한 UI 요소의 라이브러리
+4. 패턴 : 여러 컴포넌트를 결합하여 만들어진 복잡한 사용자 인터페이스 요소
+5. 도구 및 유틸리티 : 디자인 시스템을 실제 제품에 통합하기 위한 도구와 플러그인 (ui 라이브러리 , 차크라, 머터릴얼 ,shadcn)
+6. 문서화 : 디자인 시스템의 모든 요소를 사용하는 방법 (스토리북)
+7. 가이드라인 : 좋은 사용성, 접근성 등의 가이드와 권장사항들 (docs)
+8. 프로세스 및 워크플로우 : 디자인 시스템 업데이트, 확장하는 것에 대한 프로세스 (검토 시스템 예시를 들만한 것은 팀 내에서 코드리뷰 규칙??)
+
+### chakra와 비슷한 디자인 시스템을 만들어볼 것인데 모든 웹환경에서 동작 가능하도록 만드는것이 목표다. (테마, 컴포넌트)
+
+#### 다 만들고 나면 스토리북과 넥스트라를 통해서 문서화를 할 것이다. (스토리북, 넥스트라)
+
+## 디자인 토큰과 특징
+
+- 색상의 차이
+- outline
+- 타이포그라피, 폰트의 차이
+  [Adobe Spectrum](https://spectrum.adobe.com/)
+  ![](https://velog.velcdn.com/images/ghwns1007/post/83fe7783-6558-440a-9dbd-911a93c5eaea/image.png)
+
+## 디자인 토큰 동작 원리
+
+(CSS Variable) -> CSS에서 사용하는 변수
+
+- '-' 두개로 시작 --
+- var() 함수를 지정하고 그 매개변수로는 사용자 지정 속성의 이름을 제공한다.
+- 리액트, 뷰, 바닐라 자바스크립트 등 거의 모든 환경에서 동작 가능
+
+```
+:root {
+--main-bg-color: brown;
+}
+
+element {
+  background-color: var(--main-bg-color);
+}
+
+
+// 대안 패턴
+
+.three {
+ background-color : var(
+ --my-var, //첫번째 값,
+ --my-background, //첫번째 값이 없으면 두번째인 여기로
+ pink // 1,2 가 없으면 여기로
+ )
+}
+```
+
+## 디자인 UI Kit 설치
+
+1. chakra ui 홈페이지 접속
+2. get started
+3. 왼쪽 메뉴에서 figma 클릭
+4. 계정이랑 연동해서 피그마에 가져오기
+
+![](https://velog.velcdn.com/images/ghwns1007/post/bddc9010-73c3-4950-867d-653cd73bd08a/image.png)
+
+## esbuild 기반의 라이브러리 프로젝트 설정
+
+1.  모듈과 모듈 번들러
+2.  라이브러리에서 고려해야할 것
+3.  왜 esbuild인지?
+
+- 모듈
+
+  > 파일 하나하나, 특정 기능을 갖는 작은 코드 단위, 재사용성의 유지 및 관리, 네임스페이스 관리 등의 장점이 있음
+  > ex ) CommonsJS, ES Module
+
+- 모듈 번들러
+  > 여러개의 파일과 모듈을 하나, 몇 개의 파일로 결합하는 도구 (번들링, 트리쉐이킹, 트랜스파일링, 로더와 플러그인)
+  > 네트워크 통신으로 모듈을 불러와야 하는데 하나하나 불러오면 매우 느리고 도중에 인터넷이 멈추면 문제가 발생.
+  > 속도 개선, 효과적으로 모듈 합치기, 불필요한 코드 제거
+  > ex) webpack, rollup, vite, esbuild
+  >
+  > - 요새는 vite로 넘어가는 추세
+
+### 라이브러리에서 고려해야 할 것
+
+#### 브라우저 VS 라이브러리
+
+- 브라우저
+
+  > 타겟이 명확하다.
+  > 브라우저에도 동작하는 것이니 JS로 만들어야 한다.
+
+- 라이브러리
+
+  > 타겟이 상대적으로 불명확하다. (어떤 모듈번들러인지, 누가 사용할 것인지, 어느 환경인지)
+  > 어떤 언어로 쓸 것인지 ?(TS, JS)
+
+- 라이브러리에서 고려해야 할것
+  - Common JS 대응
+  - Module JS 대응
+  - 타입스크립트 대응 (type.d.ts)
+
+#### esbuild 엄청 빠르다.
+
+> - GO 언어로 작성되어서 빠름.
+> - 코드 파싱, 출력과 소스맵 생성을 모두 병렬로 처리함
+> - 불필요한 데이터 변환과 할당이
+> - Vite의 빠른 속도를 위해 개발 시 사전 번들링을 esbuild 기반에서 하고 있다. (프로덕트 빌드에서는 rollup 이유는 esbuild가 다 대응하지 못하기 때문에)
+>   ![](https://velog.velcdn.com/images/ghwns1007/post/04d3bcf1-dbc0-4af8-b4d9-e1bc37aed6f9/image.png)
+
+#### esbuild 설정하기
+
+1. 우선 프로젝트 폴더를 하나 만들고 npm init
+2. /packages/theme 폴더 생성후 다시 npm init
+3. npm i -D esbuild@0.16.17 (0.16.17 버전 설치했음)
+4. package.json에 build 스크립트 추가
+
+```
+ "build": "esbuild src/index.js --bundle --outfile=dist/index.js"
+```
+
+- src/index.js를 빌드할거고 결과물은 dist/index.js
+- 간단한 sum 함수였음, 이러면 라이브러리를 만든거임
+  ![](https://velog.velcdn.com/images/ghwns1007/post/5626a8ff-4ea2-40a1-aab1-1efeb0b81788/image.png)
+
+5. 빌드 스크립트 수정
+
+```
+    "build": "esbuild src/index.js --minify --format=cjs --bundle --outfile=dist/index.js"
+```
+
+6. esm과 commonjs 둘다 만들기
+
+- build.js 파일 만들기
+
+```js
+import esbuild from "esbuild";
+1. esm
+esbuild.build({
+  entryPoints: ["src/index.js"],
+  bundle: true,
+  minify: true,
+  sourcemap: true,
+  outdir: "dist",
+  format: "esm",
+});
+2.cjs
+esbuild.build({
+  entryPoints: ["src/index.js"],
+  bundle: true,
+  minify: true,
+  sourcemap: true,
+  outdir: "dist",
+  format: "cjs",
+  outExtension: {
+    ".js": ".cjs",
+  },
+});
+
+```
+
+7. 스크립트 파일 수정
+
+```js
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:js",
+    "build:js": "node build.js"
+  },
+```
+
+8. 병렬로 빌드 수행하기
+
+```js
+import esbuild from "esbuild";
+
+Promise.all([
+  esbuild.build({
+    entryPoints: ["src/index.js"],
+    bundle: true,
+    minify: true,
+    sourcemap: true,
+    outdir: "dist",
+    format: "esm",
+  }),
+  esbuild.build({
+    entryPoints: ["src/index.js"],
+    bundle: true,
+    minify: true,
+    sourcemap: true,
+    outdir: "dist",
+    format: "cjs",
+    outExtension: {
+      ".js": ".cjs",
+    },
+  }),
+]).catch(() => {
+  console.error("build faild");
+  process.exit(1);
+});
+```
+
+9.  공통 분리하기
+
+```
+import esbuild from "esbuild";
+
+const baseConfig = {
+  bundle: true,
+  minify: true,
+  sourcemap: true,
+  outdir: "dist",
+};
+
+Promise.all([
+  esbuild.build({
+    ...baseConfig,
+    format: "esm",
+  }),
+  esbuild.build({
+    ...baseConfig,
+    format: "cjs",
+    outExtension: {
+      ".js": ".cjs",
+    },
+  }),
+]).catch(() => {
+  console.error("build faild");
+  process.exit(1);
+});
+
+```
+
+10. esbuild config 설정해주기
+
+- 개발환경에서는 minify 옵션까지 수행해줄 필요가 없음
+- 코드에 변경사항을 바로 빌드에 반영하고 싶으면 watch
+- esbuild 16버전부터는 wath를 따로 함수로 빼줘야 한다고 함
+
+```js
+import esbuild from "esbuild";
+
+const dev = process.argv.includes("--dev");
+const minify = !dev;
+
+const watch = process.argv.includes("--watch");
+
+const baseConfig = {
+  bundle: true,
+  minify,
+  sourcemap: true,
+  outdir: "dist",
+  target: "es2019",
+  watch,
+};
+
+Promise.all([
+  esbuild.build({
+    ...baseConfig,
+    format: "esm",
+  }),
+  esbuild.build({
+    ...baseConfig,
+    format: "cjs",
+    outExtension: {
+      ".js": ".cjs",
+    },
+  }),
+]).catch(() => {
+  console.error("build faild");
+  process.exit(1);
+});
+```
+
+## 컬러 토큰 만들기
+
+- 차크라 피그마를 보자
+
+1. ![](https://velog.velcdn.com/images/ghwns1007/post/8d5ad60d-8edb-4fa0-93f3-ed9b714316e5/image.png)
+
+2. 컬러 값들을 오브젝트로 빼준다.
+
+```js
+export const color = {
+  black: "#000",
+  white: "#fff",
+};
+
+export const whiteAlpha = {
+  50: "rgba(255, 255, 255, 0.04)",
+  100: "rgba(255, 255, 255, 0.06)",
+  200: "rgba(255, 255, 255, 0.08)",
+  300: "rgba(255, 255, 255, 0.16)",
+  400: "rgba(255, 255, 255, 0.24)",
+  500: "rgba(255, 255, 255, 0.36)",
+  600: "rgba(255, 255, 255, 0.48)",
+  700: "rgba(255, 255, 255, 0.64)",
+  800: "rgba(255, 255, 255, 0.80)",
+  900: "rgba(255, 255, 255, 0.92)",
+};
+
+export const blackAlpha = {
+  50: "rgba(0, 0, 0, 0.04)",
+  100: "rgba(0, 0, 0, 0.06)",
+  200: "rgba(0, 0, 0, 0.08)",
+  300: "rgba(0, 0, 0, 0.16)",
+  400: "rgba(0, 0, 0, 0.24)",
+  500: "rgba(0, 0, 0, 0.36)",
+  600: "rgba(0, 0, 0, 0.48)",
+  700: "rgba(0, 0, 0, 0.64)",
+  800: "rgba(0, 0, 0, 0.80)",
+  900: "rgba(0, 0, 0, 0.92)",
+};
+
+export const gray = {
+  50: "#F7FAFC",
+  100: "#EDF2F7",
+  200: "#E2E8F0",
+  300: "#CBD5E0",
+  400: "#A0AEC0",
+  500: "#718096",
+  600: "#4A5568",
+  700: "#2D3748",
+  800: "#1A202C",
+  900: "#171923",
+};
+
+export const red = {
+  50: "#FFF5F5",
+  100: "#FED7D7",
+  200: "#FEB2B2",
+  300: "#FC8181",
+  400: "#F56565",
+  500: "#E53E3E",
+  600: "#C53030",
+  700: "#9B2C2C",
+  800: "#822727",
+  900: "#63171B",
+};
+
+export const orange = {
+  50: "#FFFAF0",
+  100: "#FEEBC8",
+  200: "#FBD38D",
+  300: "#F6AD55",
+  400: "#ED8936",
+  500: "#DD6B20",
+  600: "#C05621",
+  700: "#9C4221",
+  800: "#7B341E",
+  900: "#652B19",
+};
+
+export const yellow = {
+  50: "#FFFFF0",
+  100: "#FEFCBF",
+  200: "#FAF089",
+  300: "#F6E05E",
+  400: "#ECC94B",
+  500: "#D69E2E",
+  600: "#B7791F",
+  700: "#975A16",
+  800: "#744210",
+  900: "#5F370E",
+};
+
+export const green = {
+  50: "#F0FFF4",
+  100: "#C6F6D5",
+  200: "#9AE6B4",
+  300: "#68D391",
+  400: "#48BB78",
+  500: "#38A169",
+  600: "#2F855A",
+  700: "#276749",
+  800: "#22543D",
+  900: "#1C4532",
+};
+
+export const teal = {
+  50: "#E6FFFA",
+  100: "#B2F5EA",
+  200: "#81E6D9",
+  300: "#4FD1C5",
+  400: "#38B2AC",
+  500: "#319795",
+  600: "#2C7A7B",
+  700: "#285E61",
+  800: "#234E52",
+  900: "#1D4044",
+};
+
+export const blue = {
+  50: "#ebf8ff",
+  100: "#bee3f8",
+  200: "#90cdf4",
+  300: "#63b3ed",
+  400: "#4299e1",
+  500: "#3182ce",
+  600: "#2b6cb0",
+  700: "#2c5282",
+  800: "#2a4365",
+  900: "#1A365D",
+};
+
+export const cyan = {
+  50: "#EDFDFD",
+  100: "#C4F1F9",
+  200: "#9DECF9",
+  300: "#76E4F7",
+  400: "#0BC5EA",
+  500: "#00B5D8",
+  600: "#00A3C4",
+  700: "#0987A0",
+  800: "#086F83",
+  900: "#065666",
+};
+
+export const purple = {
+  50: "#FAF5FF",
+  100: "#E9D8FD",
+  200: "#D6BCFA",
+  300: "#B794F4",
+  400: "#9F7AEA",
+  500: "#805AD5",
+  600: "#6B46C1",
+  700: "#553C9A",
+  800: "#44337A",
+  900: "#322659",
+};
+
+export const pink = {
+  50: "#FFF5F7",
+  100: "#FED7E2",
+  200: "#FBB6CE",
+  300: "#F687B3",
+  400: "#ED64A6",
+  500: "#D53F8C",
+  600: "#B83280",
+  700: "#97266D",
+  800: "#702459",
+  900: "#521B41",
+};
+```
+
+3. build하면 dist 폴더안에 컬러값이 빌드됨
+4. console 찍어보기
+
+```js
+import * as theme from "../dist/index.js";
+
+Object.entries(theme.vars).forEach(([key, value]) => {
+  console.log(key, value);
+});
+
+output : colors { '$static': [Getter] }
+```
+
+```js
+import * as theme from "../dist/index.js";
+
+Object.entries(theme.vars).forEach(([key, value]) => {
+  console.log(key, value.$static);
+});
+output : colors { light: [Getter] }
+```
+
+```js
+import * as theme from "../dist/index.js";
+
+Object.entries(theme.vars).forEach(([key, value]) => {
+  console.log(key, value.$static.light);
+});
+output :
+colors {
+  blackAlpha: [Getter],
+  blue: [Getter],
+  color: [Getter],
+  cyan: [Getter],
+  gray: [Getter],
+  green: [Getter],
+  orange: [Getter],
+  pink: [Getter],
+  purple: [Getter],
+  red: [Getter],
+  teal: [Getter],
+  whiteAlpha: [Getter],
+  yellow: [Getter]
+}
+```
+
+```js
+import * as theme from "../dist/index.js";
+
+Object.entries(theme.vars).forEach(([key, value]) => {
+  console.log(key, value.$static.light.blue);
+});
+output : colors {
+  '50': '#ebf8ff',
+  '100': '#bee3f8',
+  '200': '#90cdf4',
+  '300': '#63b3ed',
+  '400': '#4299e1',
+  '500': '#3182ce',
+  '600': '#2b6cb0',
+  '700': '#2c5282',
+  '800': '#2a4365',
+  '900': '#1A365D'
+}
+```
+
+5. 빌드된 결과물을 사용하는 방법
+
+- node fs를 이용해서 폴더 만들기
+
+```js
+fs.writeFileSync("dist/themes.css", "");
+```
+
+```js
+import * as theme from "../dist/index.js";
+import fs from "fs";
+
+// theme.css
+// root: {
+//  --gray-900: #171923
+// }
+
+const toCssCasting = (str) => {
+  return str
+    .replace(/([a-z])(\d)/, "$1-$2")
+    .replace(/([A-Z])/g, "-$1")
+    .toLowerCase();
+};
+
+const generateThemeCssVariables = () => {
+  //여기다가 for 루프 돌린거를 푸쉬해준다.
+  const cssString = [];
+
+  Object.entries(theme.vars).forEach(([key, value]) => {
+    // key 가 color인 경우에
+    if (key === "colors") {
+      Object.entries(value.$static).forEach(([colorKey, colorValue]) => {
+        //ligth인 경우
+        if (colorKey === "light") {
+          const selector = ":root";
+
+          const cssVariables = Object.entries(colorValue)
+            // 각각 key들을 뽑아서
+            .map(([mainKey, mainValue]) =>
+              Object.entries(mainValue)
+                .map(
+                  ([subKey, subValue]) =>
+                    `--${toCssCasting(mainKey)}-${toCssCasting(
+                      subKey,
+                    )}: ${subValue};`,
+                )
+                // 줄바꿈 해줘서 푸쉬해줌
+                .join("\n"),
+            )
+            .join("\n");
+
+          return cssString.push(`${selector} {\n${cssVariables}\n}`);
+        }
+
+        if (colorKey === "dark") {
+          const selector = ":root .theme-dark";
+
+          const cssVariables = Object.entries(colorValue)
+            .map(([mainKey, mainValue]) =>
+              Object.entries(mainValue)
+                .map(
+                  ([subKey, subValue]) =>
+                    `--${toCssCasting(mainKey)}-${toCssCasting(
+                      subKey,
+                    )}: ${subValue};`,
+                )
+                .join("\n"),
+            )
+            .join("\n");
+
+          return cssString.push(`${selector} {\n${cssVariables}\n}`);
+        }
+      });
+
+      return;
+    }
+
+    const selector = ":root";
+
+    const cssVariables = Object.entries(value)
+      .map(([mainKey, mainValue]) =>
+        Object.entries(mainValue)
+          .map(
+            ([subKey, subValue]) =>
+              `--${toCssCasting(mainKey)}-${toCssCasting(
+                subKey,
+              )}: ${subValue};`,
+          )
+          .join("\n"),
+      )
+      .join("\n");
+
+    return cssString.push(`${selector} {\n${cssVariables}\n}`);
+  });
+  return cssString;
+};
+const generateThemeCss = () => {
+  const variables = generateThemeCssVariables();
+
+  fs.writeFileSync("dist/themes.css", [...variables].join("\n"));
+};
+
+generateThemeCss();
+```
+
+```js
+:root {
+--black-alpha-50: rgba(0, 0, 0, 0.04);
+--black-alpha-100: rgba(0, 0, 0, 0.06);
+--black-alpha-200: rgba(0, 0, 0, 0.08);
+--black-alpha-300: rgba(0, 0, 0, 0.16);
+--black-alpha-400: rgba(0, 0, 0, 0.24);
+--black-alpha-500: rgba(0, 0, 0, 0.36);
+--black-alpha-600: rgba(0, 0, 0, 0.48);
+--black-alpha-700: rgba(0, 0, 0, 0.64);
+--black-alpha-800: rgba(0, 0, 0, 0.80);
+--black-alpha-900: rgba(0, 0, 0, 0.92);
+--blue-50: #ebf8ff;
+--blue-100: #bee3f8;
+--blue-200: #90cdf4;
+--blue-300: #63b3ed;
+--blue-400: #4299e1;
+--blue-500: #3182ce;
+--blue-600: #2b6cb0;
+--blue-700: #2c5282;
+--blue-800: #2a4365;
+--blue-900: #1A365D;
+--color-black: #000;
+--color-white: #fff;
+--cyan-50: #EDFDFD;
+--cyan-100: #C4F1F9;
+--cyan-200: #9DECF9;
+--cyan-300: #76E4F7;
+--cyan-400: #0BC5EA;
+--cyan-500: #00B5D8;
+--cyan-600: #00A3C4;
+--cyan-700: #0987A0;
+--cyan-800: #086F83;
+--cyan-900: #065666;
+--gray-50: #F7FAFC;
+--gray-100: #EDF2F7;
+--gray-200: #E2E8F0;
+--gray-300: #CBD5E0;
+--gray-400: #A0AEC0;
+--gray-500: #718096;
+--gray-600: #4A5568;
+--gray-700: #2D3748;
+--gray-800: #1A202C;
+--gray-900: #171923;
+--green-50: #F0FFF4;
+--green-100: #C6F6D5;
+--green-200: #9AE6B4;
+--green-300: #68D391;
+--green-400: #48BB78;
+--green-500: #38A169;
+--green-600: #2F855A;
+--green-700: #276749;
+--green-800: #22543D;
+--green-900: #1C4532;
+--orange-50: #FFFAF0;
+--orange-100: #FEEBC8;
+--orange-200: #FBD38D;
+--orange-300: #F6AD55;
+--orange-400: #ED8936;
+--orange-500: #DD6B20;
+--orange-600: #C05621;
+--orange-700: #9C4221;
+--orange-800: #7B341E;
+--orange-900: #652B19;
+--pink-50: #FFF5F7;
+--pink-100: #FED7E2;
+--pink-200: #FBB6CE;
+--pink-300: #F687B3;
+--pink-400: #ED64A6;
+--pink-500: #D53F8C;
+--pink-600: #B83280;
+--pink-700: #97266D;
+--pink-800: #702459;
+--pink-900: #521B41;
+--purple-50: #FAF5FF;
+--purple-100: #E9D8FD;
+--purple-200: #D6BCFA;
+--purple-300: #B794F4;
+--purple-400: #9F7AEA;
+--purple-500: #805AD5;
+--purple-600: #6B46C1;
+--purple-700: #553C9A;
+--purple-800: #44337A;
+--purple-900: #322659;
+--red-50: #FFF5F5;
+--red-100: #FED7D7;
+--red-200: #FEB2B2;
+--red-300: #FC8181;
+--red-400: #F56565;
+--red-500: #E53E3E;
+--red-600: #C53030;
+--red-700: #9B2C2C;
+--red-800: #822727;
+--red-900: #63171B;
+--teal-50: #E6FFFA;
+--teal-100: #B2F5EA;
+--teal-200: #81E6D9;
+--teal-300: #4FD1C5;
+--teal-400: #38B2AC;
+--teal-500: #319795;
+--teal-600: #2C7A7B;
+--teal-700: #285E61;
+--teal-800: #234E52;
+--teal-900: #1D4044;
+--white-alpha-50: rgba(255, 255, 255, 0.04);
+--white-alpha-100: rgba(255, 255, 255, 0.06);
+--white-alpha-200: rgba(255, 255, 255, 0.08);
+--white-alpha-300: rgba(255, 255, 255, 0.16);
+--white-alpha-400: rgba(255, 255, 255, 0.24);
+--white-alpha-500: rgba(255, 255, 255, 0.36);
+--white-alpha-600: rgba(255, 255, 255, 0.48);
+--white-alpha-700: rgba(255, 255, 255, 0.64);
+--white-alpha-800: rgba(255, 255, 255, 0.80);
+--white-alpha-900: rgba(255, 255, 255, 0.92);
+--yellow-50: #FFFFF0;
+--yellow-100: #FEFCBF;
+--yellow-200: #FAF089;
+--yellow-300: #F6E05E;
+--yellow-400: #ECC94B;
+--yellow-500: #D69E2E;
+--yellow-600: #B7791F;
+--yellow-700: #975A16;
+--yellow-800: #744210;
+--yellow-900: #5F370E;
+}
+```
+
+### 열심히 만든 theme 패키지 쓰는법
+
+1. 루트 폴더에서 service 디렉토리 만들고 test 폴더에
+
+```
+npx create-react-app test --template typescript
+```
+
+2. npm install file:../../packages/themes
+
+3. ![](https://velog.velcdn.com/images/ghwns1007/post/0fd60e81-708c-4757-b027-ff23058a4f11/image.png)
+
+4. index.tsx 에서
+
+```
+import "@hojoon/themes/themes.css";
+```
+
+5. 불러오는걸 확인할 수 있다.
+   ![](https://velog.velcdn.com/images/ghwns1007/post/dfde6889-30ad-4157-afd1-4dd0690e4bcf/image.png)
+
+6.바꿔보자
+
+- app.css 에서
+
+```
+.App-header {
+  background-color: var(--gray-100);
+```
+
+색깔이 바꼈다.
+![](https://velog.velcdn.com/images/ghwns1007/post/3510ef2d-862c-4c23-b675-dc0595228be3/image.png)
+
+7. emotion과 같은 css-in-js에서 사용하기
+
+```jsx
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { ThemeProvider } from "@emotion/react";
+import styled from "@emotion/styled";
+import { vars } from "@hojoon/themes";
+
+const View = () => {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <Text>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </Text>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+};
+
+function App() {
+  const theme = {
+    color: vars.colors.$static.light,
+  };
+  return (
+    <ThemeProvider theme={theme}>
+      <View />
+    </ThemeProvider>
+  );
+}
+
+export default App;
+
+const Text = styled.p`
+  color: ${({ theme }) => {
+    // @ts-ignore
+    return theme.color.red[900];
+  }};
+`;
+```
+
+이렇게도 사용 가능 하다.
+
+```js
+const Text = styled.p`
+  color: ${vars.colors.$static.light.red[500]};
+`;
+```
+
+객체 값이기 때문에 뽑아서 쓸 수도 있다.
+
+```js
+<Text>font color ={vars.colors.$static.light.red[500]}</Text>
+```
+
+![](https://velog.velcdn.com/images/ghwns1007/post/ae4002fb-de1d-4b5e-908e-0df0dec8da03/image.png)
+
+### 여기 까지 컬러토큰 마무리 였습니다.
+
+## 다크모드 대응하기
+
+1. [chakra 에서는 각각의 컬러들을 뒤집어서 다크모드에 대응한다.](https://chakra-ui.com/docs/styled-system/theme)
+2. 아까 만들었던 themes/src/variables/colors/static/dark.ts 파일에 컬러값을 light와 뒤집어서 설정
+3. scripts/build-css-module.js
+4. scale 컬러값도 설정
+5. public/index.html에서
+
+```js
+<body class="theme-dark"> 하면 다크 모드 설정됨
+```
+
+6. index.html body태그안에 script로 다크/라이트 설정되게 가능
+
+- 리액트 코드에서 설정하지 않고 여기서 설정하는 이유는 ssr환경에서 나는 다크모드로 설정해놨는데 디폴트가 라이트모드이면 라이트모드로 로딩을 끝내고 다시 js를 실행해서 dark모드로 바뀌는 현상이 발생할 수 있다.
+
+  7.스크립트 파일 작성하기
+
+```js
+ <script>
+      const isDarkMode = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+
+      if (isDarkMode) {
+        document.body.classList.add("theme-dark");
+      }
+
+      const mediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
+
+      mediaQueryList.addEventListener("change", (e) => {
+        const isDarkMode = e.matches;
+        if (isDarkMode) {
+          document.body.classList.add("theme-dark");
+        } else {
+          document.body.classList.remove("theme-dark");
+        }
+      });
+    </script>
+```
+
+> **prefers-color-scheme** CSS 미디어 특성은 사용자의 시스템이 라이트 테마나 다크 테마를 사용하는지 탐지하는 데에 사용됩니다.
+>
+> - light
+>   사용자가 시스템에 라이트 테마를 사용하는 것을 선호하거나 선호하는 테마를 알리지 않았음을 나타냅니다.
+> - dark
+>   사용자가 시스템에 다크 테마를 사용하는 것을 선호한다고 알렸음을 나타냅니다.
+> - 보통의 서비스에서 버튼하나로 dark/light 모드를 바꾸고 저장하려면 이때 로컬스토리지를 사용하면 된다.
+
+## 타이포그라피 토큰 만들기
+
+![](https://velog.velcdn.com/images/ghwns1007/post/24768a25-d9d6-4ed5-abfb-73b34c01244f/image.png)
+
+1. variables/typography.ts
+
+```js
+export const fontSize = {
+  72: "4.5rem",
+  60: "3.75rem",
+  48: "3rem",
+  36: "2.25rem",
+  30: "1.875rem",
+  24: "1.5rem",
+  20: "1.25rem",
+  18: "1.125rem",
+  16: "1rem",
+  14: "0.875rem",
+  12: "0.75rem",
+};
+
+export const fontWeight = {
+  700: "700",
+  600: "600",
+  500: "500",
+  400: "400",
+};
+
+export const lineHeight = {
+  150: "150%",
+  133: "133%",
+  120: "120%",
+  100: "100%",
+};
+```
+
+2. build후에 app.tsx
+
+```js
+console.log("!!", classes.typography);
+```
+
+![](https://velog.velcdn.com/images/ghwns1007/post/70b95ce6-258e-410f-a6e7-d276ced3b697/image.png)
+
+3. 적용
+
+```js
+const Text = styled.p`
+  ${classes.typography.heading["4xl"]}
+  color: ${vars.colors.$static.light.red[500]};
+`;
+```
+
+![](https://velog.velcdn.com/images/ghwns1007/post/032a74b8-0eac-46ea-9d86-16ada2f238a2/image.png)
+
+4. className만 줘도 디자인 변경 가능
+
+```
+<Text className="heading3xl">
+```
+
+## shadow, Radius와 같은 그 외 토큰 만들어보기
+
+- 타이포그라피
+  - 여러 가지 조합때문에 클래스로 만들어줬어야 했고
+- 다크모드
+
+  - 각각 분리해서 만들어야 했고
+
+- css variable 추가만 해줘도 토큰을 만들 수 있다. (shadoe, radius, spacing)
+
+1. box.ts
+
+```
+export const spacing = {
+  0: "0",
+  1: "0.25rem",
+  2: "0.5rem",
+  3: "0.75rem",
+  4: "1rem",
+  5: "1.25rem",
+  6: "1.5rem",
+  7: "1.75rem",
+  8: "2rem",
+  9: "2.25rem",
+  10: "2.5rem",
+  11: "2.75rem",
+  12: "3rem",
+  14: "3.5rem",
+  16: "4rem",
+  20: "5rem",
+  24: "6rem",
+  28: "7rem",
+  32: "8rem",
+  36: "9rem",
+  40: "10rem",
+  44: "11rem",
+  48: "12rem",
+  52: "13rem",
+  56: "14rem",
+  60: "15rem",
+  64: "16rem",
+  72: "18rem",
+  80: "20rem",
+  96: "24rem",
+};
+
+export const radii = {
+  none: "0",
+  sm: "0.125rem",
+  base: "0.25rem",
+  md: "0.375rem",
+  lg: "0.5rem",
+  xl: "0.75rem",
+  "2xl": "1rem",
+  "3xl": "1.5rem",
+  full: "9999px",
+};
+
+export const shadows = {
+  xs: "0 0 0 1px rgba(0, 0, 0, 0.05)",
+  sm: "0px 1px 2px 0px rgba(0, 0, 0, 0.05)",
+  base: "0px 1px 2px 0px rgba(0, 0, 0, 0.06), 0px 1px 3px 0px rgba(0, 0, 0, 0.10)",
+  md: "0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10)",
+  lg: "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
+  xl: "0px 10px 10px -5px rgba(0, 0, 0, 0.04), 0px 20px 25px -5px rgba(0, 0, 0, 0.10)",
+  "2xl": "0px 25px 50px -12px rgba(0, 0, 0, 0.25)",
+  inner: "0px 2px 4px 0px rgba(0, 0, 0, 0.06) inset",
+  darkLg:
+    "0px 15px 40px 0px rgba(0, 0, 0, 0.40), 0px 5px 10px 0px rgba(0, 0, 0, 0.20), 0px 0px 0px 1px rgba(0, 0, 0, 0.10)",
+  outline: "0 0 0 3px rgba(66, 153, 225, 0.6)",
+};
+```
+
+2. npm run build
+3. app.tsx에서 쓰기
+
+```js
+<Text className="heading2xl">{vars.box.radii.base}</Text>
+```
+
+#### 이렇게 값이 찍힌다.
+
+![](https://velog.velcdn.com/images/ghwns1007/post/77951915-1ff2-49fc-83e4-13ee9d8b0af6/image.png)
+
+### 중요한점
+
+> 근데 이렇게 자동화된 스크립트 코드를 만드는것은 유지보수 측면에서 좋을 수 있으나 초기에는 좋지 않을수도 있다.
+> 오히려 만드는데 많은 비용이 든다.
+
+## 다음편은 UI 라이브러리만들기
