@@ -1,0 +1,28 @@
+{
+  "name": "hotube",
+  "packageManager": "yarn@4.0.2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@hojoon/themes": "workspace:^",
+    "@vanilla-extract/css": "^1.14.0",
+    "@vanilla-extract/dynamic": "^2.1.0",
+    "@vanilla-extract/recipes": "^0.5.1",
+    "next": "13.5.4",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.47",
+    "@vanilla-extract/next-plugin": "^2.3.7",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.3.3"
+  }
+}
