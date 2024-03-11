@@ -1,21 +1,9 @@
 {
   "run": {
-    "command": "nx affected -t test --parallel=3",
-    "startTime": "2024-01-12T06:24:16.460Z",
-    "endTime": "2024-01-12T06:24:19.297Z",
+    "command": "nx affected -t build --parallel=5",
+    "startTime": "2024-03-11T11:26:43.976Z",
+    "endTime": "2024-03-11T11:26:43.978Z",
     "inner": false
   },
-  "tasks": [
-    {
-      "taskId": "@hojoon/storybook:test",
-      "target": "test",
-      "projectName": "@hojoon/storybook",
-      "hash": "16360978050764445106",
-      "startTime": "2024-01-12T06:24:16.462Z",
-      "endTime": "2024-01-12T06:24:19.297Z",
-      "params": "",
-      "cacheStatus": "cache-miss",
-      "status": 0
-    }
-  ]
+  "tasks": []
 }

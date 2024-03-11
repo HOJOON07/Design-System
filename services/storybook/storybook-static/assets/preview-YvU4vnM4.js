@@ -1,0 +1,1 @@
+const t={parameters:{actions:{argTypesRegex:"^on[A-Z].*"},controls:{matchers:{color:/(background|color)$/i,date:/Date$/}},rootAttributesTooltip:!0,rootAttributes:[{root:"body",attribute:"class",defaultState:{name:"light",value:"theme-light"},states:[{name:"dark",value:"theme-dark"}]}]}};export{t as default};
