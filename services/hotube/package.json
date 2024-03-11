@@ -14,6 +14,7 @@
     "@vanilla-extract/css": "^1.14.0",
     "@vanilla-extract/dynamic": "^2.1.0",
     "@vanilla-extract/recipes": "^0.5.1",
+    "googleapis": "^133.0.0",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18"

@@ -1,6 +1,6 @@
-import "@/app/shared/styles/index";
+import "@/shared/styles/index";
 import type { Metadata } from "next";
-import { ThemeScript } from "./shared/components/ThemeScript";
+import { ThemeScript } from "../shared/components/ThemeScript";
 
 export const metadata: Metadata = {
   title: "hotube",
