@@ -1,6 +1,8 @@
+import { API_BASE_URL } from "@/shared/api/constants";
 import { VideoThumbnail } from "@/shared/api/youtube/types/item";
 import { ListPageApiInfo } from "@/shared/api/youtube/types/list";
 import { youtube_v3 } from "googleapis";
+import queryString from "query-string";
 
 export type GetVideoPopularListRequestParams = Pick<
   youtube_v3.Params$Resource$Videos$List,
@@ -23,3 +25,17 @@ export type PopularListItem = {
 export type GetVideoPopularListResponse = {
   lists: PopularListItem[];
 } & ListPageApiInfo;
+
+export const getVideosPopularListPath = "/api/videos/popular-list";
+
+export const getVideosPopularList = async (
+  params: GetVideoPopularListRequestParams,
+): Promise<GetVideoPopularListResponse> => {
+  const queryParams = queryString.stringify(params);
+
+  const url = `${API_BASE_URL}${getVideosPopularListPath}?${queryParams}`;
+
+  const response = await fetch(url);
+
+  return await response.json();
+};

@@ -1,6 +1,7 @@
 import "@/shared/styles/index";
 import type { Metadata } from "next";
 import { ThemeScript } from "../shared/components/ThemeScript";
+import { QueryProvider } from "@/shared/components/QueryProvider";
 
 export const metadata: Metadata = {
   title: "hotube",
@@ -17,7 +18,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <ThemeScript />
-        {children}
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
