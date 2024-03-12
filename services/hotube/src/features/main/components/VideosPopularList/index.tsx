@@ -1,26 +1,20 @@
 "use client";
-import { vars } from "@hojoon/themes";
 // import { getVideosPopularList } from "@/features/main/api/getVideosPopularList";
 import { useGetVideosPopularList } from "../../hooks/useGetVideosPopularList";
-import { useEffect } from "react";
+import { VideosPopularListItem } from "./ListItem";
+import * as s from "./style.css";
 
 export const VideosPopularList = () => {
   // const data = await getVideosPopularList({});
-  const { data, fetchNextPage, isFetchingNextPage } = useGetVideosPopularList(
-    {},
-  );
-  useEffect(() => {
-    fetchNextPage();
-    setTimeout(() => {}, 2_000);
-  }, []);
+  const { data } = useGetVideosPopularList({});
+
+  const flatData = data.pages.map((page) => page?.lists ?? []).flat();
 
   return (
-    <section style={{ color: vars.colors.$scale.gray[900] }}>
-      <h2>목록</h2>
-      <br />
-      <p>fetching:{isFetchingNextPage ? "true" : "false"}</p>
-      <br />
-      <p>{data.pages?.[0].lists?.[0].title}</p>
+    <section className={s.wrapper}>
+      {flatData.map((item) => (
+        <VideosPopularListItem key={item.videoId} video={item} />
+      ))}
     </section>
   );
 };
